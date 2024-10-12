@@ -24,7 +24,6 @@
     </fieldset>
 
     <form class="layui-form" id="emergency-notice-form">
-
       <div class="layui-form-item">
         <label class="layui-form-label">找到老人姓名</label>
         <div class="layui-input-block">
@@ -53,7 +52,7 @@
       <div class="layui-form-item">
         <label class="layui-form-label">走失时间</label>
         <div class="layui-input-block">
-          <input type="text" name="missing_time" required lay-verify="required" placeholder="YYYY-MM-DD HH:mm" class="layui-input">
+          <input type="text" name="missing_time" id="missing_time" required lay-verify="required" placeholder="请选择走失时间" class="layui-input">
         </div>
       </div>
 
@@ -95,43 +94,54 @@
 <script src="../layuimini/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
 <script src="../layuimini/lib/jquery-3.4.1/jquery-3.4.1.min.js"></script>
 <script>
-  layui.use(['form'], function(){
-    var form = layui.form;
+  layui.use(['form', 'laydate'], function () {
+    var form = layui.form,
+            laydate = layui.laydate;
+
+    // 初始化日期选择器
+    laydate.render({
+      elem: '#missing_time',
+      type: 'datetime', // 设置为选择日期和时间
+      format: 'yyyy-MM-dd HH:mm', // 设置日期格式
+      done: function (value) {
+        console.log("选择的时间: ", value); // 选择完成后的回调函数
+      }
+    });
 
     // 监听表单提交
-    form.on('submit(send-notice)', function(data) {
+    form.on('submit(send-notice)', function (data) {
       // 获取表单字段
       const requestData = {
-          name: data.field.name,
-          gender: data.field.gender,
-          age: data.field.age,
-          lostTime: data.field.missing_time, // 确保此格式与后端接收格式相匹配
-          lostLocation: data.field.missing_location,
-          contactInfo: data.field.family_contact
+        name: data.field.name,
+        gender: data.field.gender,
+        age: data.field.age,
+        lostTime: data.field.missing_time, // 确保此格式与后端接收格式相匹配
+        lostLocation: data.field.missing_location,
+        contactInfo: data.field.family_contact
       };
       console.log('发送到后端的数据:', JSON.stringify(requestData)); // 调试输出
 
       // 发送 AJAX 请求
       $.ajax({
-          url: 'http://localhost:8080/sendNotification', // 后端接口地址
-          type: 'POST',
-          contentType: 'application/json',
-          data: JSON.stringify(requestData), // 将对象转换为 JSON 字符串
-          success: function(response) {
-              $('#success-message').removeClass('layui-hide');
-              console.log(response);
-          },
-          error: function(xhr, status, error) {
-              console.error('请求失败:', error);
-              alert("发送通知失败，请重试。");
-          }
+        url: 'http://localhost:8080/sendNotification', // 后端接口地址
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(requestData), // 将对象转换为 JSON 字符串
+        success: function (response) {
+          $('#success-message').removeClass('layui-hide');
+          console.log(response);
+        },
+        error: function (xhr, status, error) {
+          console.error('请求失败:', error);
+          alert("发送通知失败，请重试。");
+        }
       });
       // 阻止表单的默认提交行为
       return false;
     });
 
     // 监听输入框变化以更新预览
-    $('input, select').on('input change', function() {
+    $('input, select').on('input change', function () {
       const name = $('input[name="name"]').val();
       const gender = $('select[name="gender"] option:selected').text();
       const age = $('input[name="age"]').val();
@@ -146,4 +156,3 @@
 </script>
 </body>
 </html>
-
