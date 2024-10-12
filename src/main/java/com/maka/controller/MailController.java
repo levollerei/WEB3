@@ -24,6 +24,7 @@ public class MailController {
 
     @PostMapping("/sendNotification")
     public String sendNotification(@RequestBody NotificationRequest request) {
+        System.out.println("接收到的请求: " + request);
         String lostLocation = request.getLostLocation();
 
         String location = getCoordinates(lostLocation);
@@ -71,7 +72,14 @@ public class MailController {
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
         String jsonResponse = response.getBody();
 
+        System.out.println("API 返回的响应: " + jsonResponse);
+
         JSONObject jsonObject = new JSONObject(jsonResponse);
+        if (jsonObject.getString("status").equals("0")) {
+            System.out.println("错误信息: " + jsonObject.getString("info")); // 输出错误信息
+            return null; // 处理错误
+        }
+
         JSONArray geocodes = jsonObject.getJSONArray("geocodes");
 
         if (geocodes.length() > 0) {

@@ -1,14 +1,20 @@
 package com.maka.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import java.time.LocalDateTime;
+
 public class NotificationRequest {
     private String name;
     private String gender;
-    private String age;
-    private String lostTime;
+    private int age;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
+    private LocalDateTime lostTime;
+
     private String lostLocation;
     private String contactInfo;
 
-    // Getter和Setter
+    // Getters 和 Setters
     public String getName() {
         return name;
     }
@@ -25,19 +31,19 @@ public class NotificationRequest {
         this.gender = gender;
     }
 
-    public String getAge() {
+    public int getAge() {
         return age;
     }
 
-    public void setAge(String age) {
+    public void setAge(int age) {
         this.age = age;
     }
 
-    public String getLostTime() {
+    public LocalDateTime getLostTime() {
         return lostTime;
     }
 
-    public void setLostTime(String lostTime) {
+    public void setLostTime(LocalDateTime lostTime) {
         this.lostTime = lostTime;
     }
 

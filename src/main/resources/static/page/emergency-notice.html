@@ -65,18 +65,6 @@
       </div>
 
       <div class="layui-form-item">
-        <label class="layui-form-label">选择救援队伍</label>
-        <div class="layui-input-block">
-          <select name="rescue_team" required lay-verify="required">
-            <option value="">请选择救援队伍</option>
-            <option value="team1">救援队伍 1</option>
-            <option value="team2">救援队伍 2</option>
-            <option value="team3">救援队伍 3</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="layui-form-item">
         <label class="layui-form-label">家属联系方式</label>
         <div class="layui-input-block">
           <input type="text" name="family_contact" required lay-verify="required" placeholder="请输入家属手机号或邮箱" class="layui-input">
@@ -111,12 +99,33 @@
     var form = layui.form;
 
     // 监听表单提交
-    form.on('submit(send-notice)', function(data){
-      // 这里可以添加AJAX请求，发送通知
+    form.on('submit(send-notice)', function(data) {
+      // 获取表单字段
+      const requestData = {
+          name: data.field.name,
+          gender: data.field.gender,
+          age: data.field.age,
+          lostTime: data.field.missing_time, // 确保此格式与后端接收格式相匹配
+          lostLocation: data.field.missing_location,
+          contactInfo: data.field.family_contact
+      };
+      console.log('发送到后端的数据:', JSON.stringify(requestData)); // 调试输出
 
-      // 显示成功提示
-      $('#success-message').removeClass('layui-hide');
-
+      // 发送 AJAX 请求
+      $.ajax({
+          url: 'http://localhost:8080/sendNotification', // 后端接口地址
+          type: 'POST',
+          contentType: 'application/json',
+          data: JSON.stringify(requestData), // 将对象转换为 JSON 字符串
+          success: function(response) {
+              $('#success-message').removeClass('layui-hide');
+              console.log(response);
+          },
+          error: function(xhr, status, error) {
+              console.error('请求失败:', error);
+              alert("发送通知失败，请重试。");
+          }
+      });
       // 阻止表单的默认提交行为
       return false;
     });
@@ -128,10 +137,9 @@
       const age = $('input[name="age"]').val();
       const missingTime = $('input[name="missing_time"]').val();
       const missingLocation = $('input[name="missing_location"]').val();
-      const rescueTeam = $('select[name="rescue_team"] option:selected').text();
       const familyContact = $('input[name="family_contact"]').val();
 
-      $('#preview-content').text(`紧急通知：找到走失老人${name}，性别${gender}，年龄${age}岁。走失时间：${missingTime}，走失地点：${missingLocation}。请通知救援队伍：${rescueTeam}，联系方式：${familyContact}`);
+      $('#preview-content').text(`紧急通知！\n\n尊敬的相关人员，\n\n我们正在寻找一位失踪老人，请您密切注意。\n\n失踪老人信息如下：\n姓名：${name}\n性别：${gender}\n年龄：${age}\n走失时间：${missingTime}\n走失地点：${missingLocation}\n家属联系方式：${familyContact}\n\n请您如果有相关信息，请及时与家属联系。感谢您的配合！\n\n此致，\n紧急通知小组`);
     });
   });
 </script>
