@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>紧急通知</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../layuimini/lib/layui-v2.5.5/css/layui.css" media="all">
+  <link rel="stylesheet" href="../layuimini/css/public.css" media="all">
+  <style>
+    .notification-preview {
+      background-color: #f2f2f2;
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+<div class="layuimini-container">
+  <div class="layuimini-main">
+    <fieldset class="layui-elem-field layui-field-title" align="center" style="margin-top: 20px;">
+      <legend>紧急通知</legend>
+    </fieldset>
+
+    <form class="layui-form" id="emergency-notice-form">
+
+      <div class="layui-form-item">
+        <label class="layui-form-label">找到老人姓名</label>
+        <div class="layui-input-block">
+          <input type="text" name="name" required lay-verify="required" placeholder="请输入姓名" class="layui-input">
+        </div>
+      </div>
+
+      <div class="layui-form-item">
+        <label class="layui-form-label">性别</label>
+        <div class="layui-input-block">
+          <select name="gender" required lay-verify="required">
+            <option value="">请选择性别</option>
+            <option value="male">男</option>
+            <option value="female">女</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="layui-form-item">
+        <label class="layui-form-label">年龄</label>
+        <div class="layui-input-block">
+          <input type="number" name="age" required lay-verify="required" placeholder="请输入年龄" class="layui-input">
+        </div>
+      </div>
+
+      <div class="layui-form-item">
+        <label class="layui-form-label">走失时间</label>
+        <div class="layui-input-block">
+          <input type="text" name="missing_time" required lay-verify="required" placeholder="YYYY-MM-DD HH:mm" class="layui-input">
+        </div>
+      </div>
+
+      <div class="layui-form-item">
+        <label class="layui-form-label">走失地点</label>
+        <div class="layui-input-block">
+          <input type="text" name="missing_location" required lay-verify="required" placeholder="请输入走失地点" class="layui-input">
+        </div>
+      </div>
+
+      <div class="layui-form-item">
+        <label class="layui-form-label">选择救援队伍</label>
+        <div class="layui-input-block">
+          <select name="rescue_team" required lay-verify="required">
+            <option value="">请选择救援队伍</option>
+            <option value="team1">救援队伍 1</option>
+            <option value="team2">救援队伍 2</option>
+            <option value="team3">救援队伍 3</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="layui-form-item">
+        <label class="layui-form-label">家属联系方式</label>
+        <div class="layui-input-block">
+          <input type="text" name="family_contact" required lay-verify="required" placeholder="请输入家属手机号或邮箱" class="layui-input">
+        </div>
+      </div>
+
+      <div class="layui-form-item">
+        <label class="layui-form-label">通知内容预览</label>
+        <div class="layui-input-block notification-preview">
+          <p id="preview-content">请填写上面的信息以预览通知内容。</p>
+        </div>
+      </div>
+
+      <div class="layui-form-item">
+        <div class="layui-input-block">
+          <button class="layui-btn" lay-submit lay-filter="send-notice">发送通知</button>
+        </div>
+      </div>
+    </form>
+
+    <!-- 成功提示 -->
+    <div id="success-message" class="layui-hide" style="text-align: center; margin-top: 20px;">
+      <span class="layui-badge layui-bg-green">通知发送成功！</span>
+    </div>
+  </div>
+</div>
+
+<script src="../layuimini/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script src="../layuimini/lib/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+<script>
+  layui.use(['form'], function(){
+    var form = layui.form;
+
+    // 监听表单提交
+    form.on('submit(send-notice)', function(data){
+      // 这里可以添加AJAX请求，发送通知
+
+      // 显示成功提示
+      $('#success-message').removeClass('layui-hide');
+
+      // 阻止表单的默认提交行为
+      return false;
+    });
+
+    // 监听输入框变化以更新预览
+    $('input, select').on('input change', function() {
+      const name = $('input[name="name"]').val();
+      const gender = $('select[name="gender"] option:selected').text();
+      const age = $('input[name="age"]').val();
+      const missingTime = $('input[name="missing_time"]').val();
+      const missingLocation = $('input[name="missing_location"]').val();
+      const rescueTeam = $('select[name="rescue_team"] option:selected').text();
+      const familyContact = $('input[name="family_contact"]').val();
+
+      $('#preview-content').text(`紧急通知：找到走失老人${name}，性别${gender}，年龄${age}岁。走失时间：${missingTime}，走失地点：${missingLocation}。请通知救援队伍：${rescueTeam}，联系方式：${familyContact}`);
+    });
+  });
+</script>
+</body>
+</html>
+

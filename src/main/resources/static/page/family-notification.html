@@ -1,0 +1,84 @@
+<!--通知家属-->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>通知家属</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../layuimini/lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="../layuimini/css/public.css" media="all">
+</head>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <fieldset class="layui-elem-field layui-field-title" align="center" style="margin-top: 20px;">
+            <legend>通知家属</legend>
+        </fieldset>
+
+        <form class="layui-form" action="">
+            <div class="layui-form-item">
+                <label class="layui-form-label">走失老人姓名</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="elderName" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">家属姓名</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="relativeName" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">家属联系方式</label>
+                <div class="layui-input-inline">
+                    <input type="tel" name="relativePhone" lay-verify="required|phone" placeholder="请输入" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">通知内容</label>
+                <div class="layui-input-block">
+                    <textarea name="notificationContent" placeholder="请输入通知内容" class="layui-textarea"></textarea>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">紧急程度</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="urgency" value="普通" title="普通">
+                    <input type="radio" name="urgency" value="紧急" title="紧急">
+                    <input type="radio" name="urgency" value="非常紧急" title="非常紧急">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block" style="text-align: center;">
+                    <button class="layui-btn" lay-submit="" lay-filter="submitForm">立即通知</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="../layuimini/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script src="../layuimini/lib/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+<script>
+    layui.use(['form', 'laydate'], function () {
+        var form = layui.form
+            , layer = layui.layer;
+
+        //监听提交
+        form.on('submit(submitForm)', function (data) {
+            layer.alert('通知已发送');
+            return false;
+        });
+    });
+</script>
+
+</body>
+</html>

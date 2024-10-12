@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.GetMapping;
+
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -134,10 +136,53 @@ public class RescueOldManController {
 //        timeLine.setDesc("杨双月在郫都区小龙坎附近发现疑似老人");
 //        timeLines.add(timeLine3);
 
-        timeLines.sort((o1, o2) ->{return (int) (o1.getTime().getTime() - o2.getTime().getTime());});
+        timeLines.sort((o1, o2) -> {
+            return (int) (o1.getTime().getTime() - o2.getTime().getTime());
+        });
         return MessageResponse.success("成功", timeLines);
 
     }
 
+    public class PageController {
 
+        @GetMapping("/user-guide")
+        public String userGuide() {
+            return "page/user-guide"; // 对应 templates/user-guide.html
+        }
+
+        @GetMapping("/emergency-notice")
+        public String emergencyNotice() {
+            return "page/emergency-notice"; // 对应 templates/emergency-notice.html
+        }
+
+        @GetMapping("/system-settings")
+        public String systemSettings() {
+            return "page/system-settings"; // 对应 templates/system-settings.html
+        }
+
+        @GetMapping("/data-visualization")
+        public String dataVisualization() {
+            return "data-view"; // 修改为对应的 data-view.html 路径
+        }
+
+        @GetMapping("/task-publish")
+        public String taskPublish() {
+            return "page/task-publish"; // 对应 templates/task-publish.html
+        }
+
+        @GetMapping("/task-management")
+        public String taskManagement() {
+            return "page/task-management"; // 对应 templates/task-management.html
+        }
+
+        @GetMapping("/family-notification")
+        public String familyNotification() {
+            return "page/family-notification"; // 对应 templates/family-notification.html
+        }
+
+        @GetMapping("/map-management")
+        public String mapManagement() {
+            return "page/map-management"; // 对应 templates/map-management.html
+        }
+    }
 }

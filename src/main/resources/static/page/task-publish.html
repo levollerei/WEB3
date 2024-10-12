@@ -1,0 +1,88 @@
+<!--任务发布-->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>任务发布</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="../layuimini/lib/layui-v2.5.5/css/layui.css" media="all">
+  <link rel="stylesheet" href="../layuimini/css/public.css" media="all">
+</head>
+<body>
+<div class="layuimini-container">
+  <div class="layuimini-main">
+    <fieldset class="layui-elem-field layui-field-title" align="center" style="margin-top: 20px;">
+      <legend>任务发布</legend>
+    </fieldset>
+
+    <form class="layui-form" action="">
+      <div class="layui-form-item">
+        <label class="layui-form-label">走失人员姓名</label>
+        <div class="layui-input-inline">
+          <input type="text" name="lost_person_name" lay-verify="required" placeholder="请输入姓名" autocomplete="off" class="layui-input">
+        </div>
+      </div>
+
+      <div class="layui-form-item">
+        <label class="layui-form-label">走失时间</label>
+        <div class="layui-input-inline">
+          <input type="text" name="lost_time" id="date1" lay-verify="required" autocomplete="off" class="layui-input">
+        </div>
+      </div>
+
+      <div class="layui-form-item">
+        <label class="layui-form-label">走失地点</label>
+        <div class="layui-input-inline">
+          <input type="text" name="lost_place" lay-verify="required" placeholder="请输入地点" autocomplete="off" class="layui-input">
+        </div>
+      </div>
+
+      <div class="layui-form-item">
+        <label class="layui-form-label">联系人手机号</label>
+        <div class="layui-input-inline">
+          <input type="tel" name="contact_phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
+        </div>
+      </div>
+
+      <div class="layui-form-item">
+        <label class="layui-form-label">救援队伍</label>
+        <div class="layui-input-block">
+          <input type="checkbox" name="rescue_team[]" lay-skin="primary" title="队伍A">
+          <input type="checkbox" name="rescue_team[]" lay-skin="primary" title="队伍B">
+          <input type="checkbox" name="rescue_team[]" lay-skin="primary" title="队伍C">
+        </div>
+      </div>
+
+      <div class="layui-form-item">
+        <div class="layui-input-block" style="text-align: center;">
+          <button class="layui-btn" lay-submit="" lay-filter="demo1">立即发布</button>
+          <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="../layuimini/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script src="../layuimini/lib/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+
+<script>
+  layui.use(['form', 'laydate'], function () {
+    var form = layui.form, laydate = layui.laydate;
+
+    laydate.render({
+      elem: '#date1' //指定日期输入框
+    });
+
+    //监听提交
+    form.on('submit(demo1)', function (data) {
+      layer.alert('发布成功');
+      return false;
+    });
+  });
+</script>
+
+</body>
+</html>

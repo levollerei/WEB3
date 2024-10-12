@@ -4,7 +4,7 @@
     "href": "page/welcome.html"
   },
   "logoInfo": {
-    "title": "归家行动",
+    "title": "暖心归家",
     "image": "layuimini/images/logo.png",
     "href": ""
   },
@@ -16,21 +16,27 @@
       "target": "_self",
       "child": [
         {
-          "title": "救援管理",
+          "title": "救援行动",
           "href": "",
           "icon": "fa fa-heartbeat",
           "target": "_self",
           "child": [
             {
-              "title": "救援申请",
+              "title": "救援信息",
+              "href": "page/ongoingrescue.html",
+              "icon": "fa fa-wheelchair",
+              "target": "_self"
+            },
+            {
+              "title": "救援管理",
               "href": "page/aid-application.html",
               "icon": "fa fa-pencil-square-o",
               "target": "_self"
             },
             {
-              "title": "救援行动",
-              "href": "page/ongoingrescue.html",
-              "icon": "fa fa-wheelchair",
+              "title": "地图管理",
+              "href": "page/map-management.html",
+              "icon": "fa fa-map",
               "target": "_self"
             }
           ]
@@ -42,35 +48,66 @@
           "target": "_self",
           "child": [
             {
-              "title": "队员注册",
-              "href": "page/register.html",
-              "icon": "fa fa-paint-brush",
-              "target": "_self"
-            },
-            {
               "title": "队员信息",
               "href": "page/volunteer-info.html",
               "icon": "fa fa-file-text-o",
               "target": "_self"
+            },
+            {
+              "title": "信息修改",
+              "href": "page/register.html",
+              "icon": "fa fa-paint-brush",
+              "target": "_self"
             }
           ]
         },
-		{
-          "title": "使用说明",
-          "href": "page/4xx.html",
-          "icon": "fa fa-window-maximize",
+        {
+          "title": "可视化数据显示",
+          "href": "data-view.html",
+          "icon": "fa fa-bar-chart",
           "target": "_self"
         },
-
         {
-          "title": "案例总结",
-          "href": "page/4xx.html",
+          "title": "任务中心",
+          "icon": "fa fa-tasks",
+          "href": "",
+          "target": "_self",
+          "child": [
+            {
+              "title": "任务发布",
+              "href": "page/task-publish.html",
+              "icon": "fa fa-upload",
+              "target": "_self"
+            },
+            {
+              "title": "任务管理",
+              "href": "page/task-management.html",
+              "icon": "fa fa-list-alt",
+              "target": "_self"
+            }
+          ]
+        },
+        {
+          "title": "通知家属",
+          "href": "page/family-notification.html",
+          "icon": "fa fa-bell",
+          "target": "_self"
+        },
+        {
+          "title": "紧急通知",
+          "href": "page/emergency-notice.html",
           "icon": "fa fa-file-text",
           "target": "_self"
         },
         {
+          "title": "使用说明",
+          "href": "page/user-guide.html",
+          "icon": "fa fa-window-maximize",
+          "target": "_self"
+        },
+        {
           "title": "系统设置",
-          "href": "page/4xx.html",
+          "href": "page/system-settings.html",
           "icon": "fa fa-gears",
           "target": "_self"
         }
@@ -78,3 +115,4 @@
     }
   ]
 }
+
