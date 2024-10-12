@@ -1,0 +1,80 @@
+{
+  "homeInfo": {
+    "title": "首页",
+    "href": "page/welcome.html"
+  },
+  "logoInfo": {
+    "title": "归家行动",
+    "image": "layuimini/images/logo.png",
+    "href": ""
+  },
+  "menuInfo": [
+    {
+      "title": "常规管理",
+      "icon": "fa fa-address-book",
+      "href": "",
+      "target": "_self",
+      "child": [
+        {
+          "title": "救援管理",
+          "href": "",
+          "icon": "fa fa-heartbeat",
+          "target": "_self",
+          "child": [
+            {
+              "title": "救援申请",
+              "href": "page/aid-application.html",
+              "icon": "fa fa-pencil-square-o",
+              "target": "_self"
+            },
+            {
+              "title": "救援行动",
+              "href": "page/ongoingrescue.html",
+              "icon": "fa fa-wheelchair",
+              "target": "_self"
+            }
+          ]
+        },
+        {
+          "title": "队员管理",
+          "href": "",
+          "icon": "fa fa-group",
+          "target": "_self",
+          "child": [
+            {
+              "title": "队员注册",
+              "href": "page/register.html",
+              "icon": "fa fa-paint-brush",
+              "target": "_self"
+            },
+            {
+              "title": "队员信息",
+              "href": "page/volunteer-info.html",
+              "icon": "fa fa-file-text-o",
+              "target": "_self"
+            }
+          ]
+        },
+		{
+          "title": "使用说明",
+          "href": "page/4xx.html",
+          "icon": "fa fa-window-maximize",
+          "target": "_self"
+        },
+
+        {
+          "title": "案例总结",
+          "href": "page/4xx.html",
+          "icon": "fa fa-file-text",
+          "target": "_self"
+        },
+        {
+          "title": "系统设置",
+          "href": "page/4xx.html",
+          "icon": "fa fa-gears",
+          "target": "_self"
+        }
+      ]
+    }
+  ]
+}
