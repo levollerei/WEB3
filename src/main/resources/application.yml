@@ -46,6 +46,9 @@ mybatis:
     map-underscore-to-camel-case: true
 logging:
   level:
+    root: info
     com.maka.mapper: debug
+    org.mybatis: debug
+    org.springframework.jdbc.datasource: debug
 server:
   port: 8080
