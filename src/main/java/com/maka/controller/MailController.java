@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.json.JSONObject;
 import org.json.JSONArray;
 
+import java.time.format.DateTimeFormatter;
+
 @RestController
 public class MailController {
 
@@ -26,7 +28,12 @@ public class MailController {
     public String sendNotification(@RequestBody NotificationRequest request) {
         System.out.println("接收到的请求: " + request);
         String lostLocation = request.getLostLocation();
-
+        // 转换性别
+        String genderDisplay = "male".equals(request.getGender()) ? "男" : "女";
+        // 格式化时间
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String lostTimeFormatted = request.getLostTime().format(formatter);
+        // 转换地址为经纬度
         String location = getCoordinates(lostLocation);
         if (location == null) {
             return "地址无法转换为经纬度";
@@ -56,13 +63,14 @@ public class MailController {
                         "请您如果有相关信息，请及时与家属联系。感谢您的配合！\n\n" +
                         "此致，\n" +
                         "紧急通知小组",
-                request.getName(), request.getGender(), request.getAge(),
-                request.getLostTime(), lostLocation, request.getContactInfo()
+                request.getName(), genderDisplay, request.getAge(),
+                lostTimeFormatted, lostLocation, request.getContactInfo()
         );
 
         mailService.sendEmail(closestEmail, subject, body);
         return "通知已发送成功！";
     }
+
 
     // 该方法用于根据给定地址获取地理坐标
     private String getCoordinates(String address) {

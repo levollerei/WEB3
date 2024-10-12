@@ -138,8 +138,9 @@
       const missingTime = $('input[name="missing_time"]').val();
       const missingLocation = $('input[name="missing_location"]').val();
       const familyContact = $('input[name="family_contact"]').val();
+      const message = `紧急通知！<br><br>尊敬的相关人员，<br><br>我们正在寻找一位失踪老人，请您密切注意。<br><br>失踪老人信息如下：<br>姓名: ${name}<br>性别: ${gender}<br>年龄: ${age}岁<br>走失时间: ${missingTime}<br>走失地点: ${missingLocation}<br>联系方式: ${familyContact}<br><br>请您如果有相关信息，请及时与家属联系。感谢您的配合！<br><br>此致，<br>紧急通知小组`;
 
-      $('#preview-content').text(`紧急通知！\n\n尊敬的相关人员，\n\n我们正在寻找一位失踪老人，请您密切注意。\n\n失踪老人信息如下：\n姓名：${name}\n性别：${gender}\n年龄：${age}\n走失时间：${missingTime}\n走失地点：${missingLocation}\n家属联系方式：${familyContact}\n\n请您如果有相关信息，请及时与家属联系。感谢您的配合！\n\n此致，\n紧急通知小组`);
+      $('#preview-content').html(message); // 使用 .html() 而不是 .text()
     });
   });
 </script>
