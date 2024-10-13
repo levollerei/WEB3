@@ -1,84 +1,229 @@
-<!--通知家属-->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>通知家属</title>
-    <meta name="renderer" content="webkit">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="../layuimini/lib/layui-v2.5.5/css/layui.css" media="all">
-    <link rel="stylesheet" href="../layuimini/css/public.css" media="all">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>通知家属页面</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/layui@2.7.6/dist/css/layui.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"> <!-- 引入Google Fonts -->
+    <style>
+        body {
+            background: linear-gradient(120deg, #f0f4f8, #e2e2e2);
+            font-family: 'Roboto', sans-serif; /* 使用Roboto字体 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            width: 80%;
+            max-width: 1200px;
+            gap: 20px;
+        }
+        .card-container {
+            display: flex;
+            justify-content: space-between;
+            flex: 1;
+            gap: 20px;
+        }
+        .form-container, .preview-container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+            flex: 1;
+            min-width: 300px;
+        }
+        .form-container:hover, .preview-container:hover {
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+            transform: scale(1.02); /* 添加放大效果 */
+        }
+        .layui-btn {
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-size: 16px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            width: 100%;
+            margin-top: 20px;
+            animation: pulse 1.5s infinite;
+            position: relative;
+        }
+        .layui-btn:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+        .preview-container {
+            display: flex;
+            flex-direction: column;
+        }
+        .preview-content {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            margin-top: 20px;
+            flex-grow: 1;
+            white-space: pre-wrap;
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            transition: transform 0.3s ease; /* 添加过渡效果 */
+        }
+        .preview-header {
+            font-weight: bold;
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #0056b3;
+            border-bottom: 2px solid #0056b3;
+            padding-bottom: 10px;
+        }
+        .preview-body {
+            margin: 10px 0;
+            color: #333;
+            font-size: 16px;
+        }
+        .divider {
+            width: 100%;
+            height: 2px;
+            background-color: #007bff;
+            margin: 20px 0;
+            position: relative;
+        }
+        .divider:before {
+            content: "📩";
+            position: absolute;
+            left: -30px;
+            top: -5px;
+            font-size: 24px;
+        }
+        .divider:after {
+            content: "📩";
+            position: absolute;
+            right: -30px;
+            top: -5px;
+            font-size: 24px;
+        }
+        @media (max-width: 768px) {
+            .form-container, .preview-container {
+                padding: 20px;
+            }
+            .layui-btn {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
 </head>
 <body>
-<div class="layuimini-container">
-    <div class="layuimini-main">
-        <fieldset class="layui-elem-field layui-field-title" align="center" style="margin-top: 20px;">
-            <legend>通知家属</legend>
-        </fieldset>
-
-        <form class="layui-form" action="">
+<div class="container">
+    <div class="card-container">
+        <div class="form-container layui-form">
             <div class="layui-form-item">
-                <label class="layui-form-label">走失老人姓名</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="elderName" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-
-            <div class="layui-form-item">
-                <label class="layui-form-label">家属姓名</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="relativeName" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-
-            <div class="layui-form-item">
-                <label class="layui-form-label">家属联系方式</label>
-                <div class="layui-input-inline">
-                    <input type="tel" name="relativePhone" lay-verify="required|phone" placeholder="请输入" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-
-            <div class="layui-form-item">
-                <label class="layui-form-label">通知内容</label>
+                <label class="layui-form-label"><i class="layui-icon layui-icon-user"></i> 走失老人姓名</label>
                 <div class="layui-input-block">
-                    <textarea name="notificationContent" placeholder="请输入通知内容" class="layui-textarea"></textarea>
+                    <input type="text" name="oldPersonName" required placeholder="请输入走失老人姓名" autocomplete="off" class="layui-input" id="oldPersonName">
                 </div>
             </div>
-
+            <div class="layui-form-item">
+                <label class="layui-form-label"><i class="layui-icon layui-icon-friends"></i> 家属姓名</label>
+                <div class="layui-input-block">
+                    <input type="text" name="familyName" required placeholder="请输入家属姓名" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><i class="layui-icon layui-icon-phone"></i> 联系方式</label>
+                <div class="layui-input-block">
+                    <input type="tel" name="contact" required placeholder="请输入联系方式" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><i class="layui-icon layui-icon-form"></i> 最新线索地址</label>
+                <div class="layui-input-block">
+                    <input type="text" name="latestClueAddress" required placeholder="请输入最新线索地址" autocomplete="off" class="layui-input" id="latestClueAddress">
+                </div>
+            </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">紧急程度</label>
                 <div class="layui-input-block">
-                    <input type="radio" name="urgency" value="普通" title="普通">
-                    <input type="radio" name="urgency" value="紧急" title="紧急">
-                    <input type="radio" name="urgency" value="非常紧急" title="非常紧急">
+                    <select name="urgencyLevel" lay-verify="required">
+                        <option value="">请选择紧急程度</option>
+                        <option value="1">普通</option>
+                        <option value="2">紧急</option>
+                    </select>
                 </div>
             </div>
-
             <div class="layui-form-item">
-                <div class="layui-input-block" style="text-align: center;">
-                    <button class="layui-btn" lay-submit="" lay-filter="submitForm">立即通知</button>
-                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                <label class="layui-form-label"><i class="layui-icon layui-icon-upload-drag"></i> 上传资料</label>
+                <div class="layui-input-block">
+                    <input type="file" name="file" class="layui-input">
                 </div>
             </div>
-        </form>
-    </div>
+        </div>
+
+        <div class="preview-container">
+            <div class="preview-content" id="notificationPreview">
+                <div class="preview-header">通知内容</div>
+                <div class="divider"></div>
+                <div class="preview-body">
+                    请填写左侧信息以查看预览。
+                </div>
+            </div>
+        </div>
+    </div> <!-- card-container 结束 -->
+
+    <button class="layui-btn" lay-submit lay-filter="submitForm">立即通知</button>
 </div>
 
-<script src="../layuimini/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
-<script src="../layuimini/lib/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/layui@2.7.6/dist/layui.js"></script>
 <script>
-    layui.use(['form', 'laydate'], function () {
-        var form = layui.form
-            , layer = layui.layer;
+    layui.use(['form', 'layer'], function () {
+        const form = layui.form;
+        const layer = layui.layer;
+        const oldPersonNameInput = document.getElementById('oldPersonName');
+        const latestClueAddressInput = document.getElementById('latestClueAddress');
+        const notificationPreview = document.getElementById('notificationPreview');
 
-        //监听提交
+        function updatePreview() {
+            const oldPersonName = oldPersonNameInput.value || "走失老人";
+            const latestClueAddress = latestClueAddressInput.value || "某个地址";
+            notificationPreview.innerHTML = `
+                <div class="preview-header">通知内容</div>
+                <div class="divider"></div>
+                <div class="preview-body">
+                    ${oldPersonName}的家属您好，<br>
+                    当前在${latestClueAddress}地出现了该老人的最新线索，<br>
+                    请您有时间前往附近的派出所进行进一步确认，<br>
+                    有任何需要，请继续与我们联系！
+                </div>
+            `;
+        }
+
+        oldPersonNameInput.addEventListener('input', updatePreview);
+        latestClueAddressInput.addEventListener('input', updatePreview);
+
+        // 提交表单事件
         form.on('submit(submitForm)', function (data) {
-            layer.alert('通知已发送');
-            return false;
+            layer.confirm('确认要通知家属吗？', function (index) {
+                layer.msg('通知已发送！', { icon: 1 });
+                layer.close(index);
+            });
+            return false; // 防止默认提交
         });
     });
 </script>
-
 </body>
 </html>
