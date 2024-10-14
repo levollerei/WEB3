@@ -14,12 +14,10 @@ public class SmsController {
 
     @PostMapping("/send")
     public String sendSms(@RequestBody SmsRequest request) {
-        // 获取手机号和验证码
-        String phoneNumber = request.getPhoneNumber();
-        String verificationCode = request.getVerificationCode(); // 这个可以来自前端请求
-
-        // 调用短信服务发送短信
-        smsService.sendSms(phoneNumber, verificationCode);
+        smsService.sendSms(request.getPhoneNumber(), request.getFamilyName(),
+                           request.getLocation(), request.getElderlyName(),
+                           request.getGender(), request.getAge(), request.getContactNumber());
         return "短信已发送";
     }
+
 }

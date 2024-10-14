@@ -24,27 +24,31 @@ public class SmsServiceImpl implements SmsService {
     private String templateCode;
 
     @Override
-    public void sendSms(String phoneNumber, String verificationCode) {
+    public void sendSms(String phoneNumber, String familyName, String location,
+                        String elderlyName, String gender, String age, String contactNumber) {
         try {
-            // 初始化阿里云短信客户端
             Config config = new Config()
-                .setAccessKeyId(accessKeyId)
-                .setAccessKeySecret(accessKeySecret)
-                .setEndpoint("dysmsapi.aliyuncs.com");
+                    .setAccessKeyId(accessKeyId)
+                    .setAccessKeySecret(accessKeySecret)
+                    .setEndpoint("dysmsapi.aliyuncs.com");
 
             Client client = new Client(config);
 
             // 创建发送短信请求
             SendSmsRequest request = new SendSmsRequest()
-                .setPhoneNumbers(phoneNumber)
-                .setSignName(signName)
-                .setTemplateCode(templateCode)
-                .setTemplateParam("{\"code\":\"" + verificationCode + "\"}");
+                    .setPhoneNumbers(phoneNumber)
+                    .setSignName(signName)
+                    .setTemplateCode(templateCode)
+                    .setTemplateParam("{\"familyName\":\"" + familyName + "\","
+                            + "\"location\":\"" + location + "\","
+                            + "\"elderlyName\":\"" + elderlyName + "\","
+                            + "\"gender\":\"" + gender + "\","
+                            + "\"age\":\"" + age + "\","
+                            + "\"contactNumber\":\"" + contactNumber + "\"}");
 
-            // 发送请求
             SendSmsResponse response = client.sendSms(request);
 
-            // 检查响应码和响应消息
+            // 检查响应
             System.out.println("Response Code: " + response.getBody().code);
             System.out.println("Response Message: " + response.getBody().message);
 
