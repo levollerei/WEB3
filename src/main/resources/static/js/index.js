@@ -10,7 +10,7 @@ $(function () {
         option = {
             title: {
                 text: '走失人口年龄分析',
-                top: 35,
+                top: 10,
                 left: 20,
                 textStyle: {
                     fontSize: 18,
@@ -58,13 +58,12 @@ $(function () {
     }
 
     function echart_2() {
-        // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('chart_2'));
         var data = {
             id: 'multipleBarsLines',
             title: '每月救援活动统计',
             legendBar: ['救援数量', '中立占比', '负面占比'],
-            symbol: '', //数值是否带百分号        --默认为空 ''
+            symbol: '',
             legendLine: ['同期对比'],
             xAxis: ['一月', '二月', '三月', '四月', '五月', '六月'],
             yAxis: [
@@ -73,11 +72,9 @@ $(function () {
             lines: [
                 [8, 10, 7, 12, 6, 9]
             ],
-            barColor: ['#3FA7DC', '#7091C4', '#5170A2'], //柱子颜色 必填参数
-            lineColor: ['#D9523F'], // 折线颜色
-
+            barColor: ['#3FA7DC', '#7091C4', '#5170A2'],
+            lineColor: ['#D9523F'],
         };
-        /////////////end/////////
 
         var myData = (function test() {
             var yAxis = data.yAxis || [];
@@ -87,6 +84,7 @@ $(function () {
             var symbol = data.symbol || ' ';
             var seriesArr = [];
             var legendArr = [];
+
             yAxis && yAxis.forEach((item, index) => {
                 legendArr.push({
                     name: legendBar && legendBar.length > 0 && legendBar[index]
@@ -111,7 +109,7 @@ $(function () {
                             },
                         },
                     },
-                    itemStyle: { //图形样式
+                    itemStyle: {
                         normal: {
                             barBorderRadius: 4,
                             color: data.barColor[index]
@@ -139,12 +137,13 @@ $(function () {
                     },
                     label: {
                         normal: {
-                            show: false, //折线上方label控制显示隐藏
+                            show: false,
                             position: 'top',
                         }
                     },
                     symbol: 'circle',
-                    symbolSize: 10
+                    symbolSize: 10,
+                    symbolOffset: [0, 5],  // 可以根据需要调整symbol的位置
                 });
             });
 
@@ -154,11 +153,10 @@ $(function () {
             };
         })();
 
-
         option = {
             title: {
                 show: true,
-                top: '10%',
+                top: '5%',
                 left: '3%',
                 text: data.title,
                 textStyle: {
@@ -174,14 +172,12 @@ $(function () {
                     var time = '';
                     var str = '';
                     for (var i of params) {
-                        console.log(i);
                         time = i.name.replace(/\n/g, '') + '<br/>';
                         if (i.data == 'null' || i.data == null) {
                             str += i.seriesName + '：无数据' + '<br/>'
                         } else {
                             str += i.seriesName + '：' + i.data + '%<br/>'
                         }
-
                     }
                     return time + str;
                 },
@@ -205,10 +201,10 @@ $(function () {
                 }
             },
             grid: {
-                x: 30,
-                y: 80,
-                x2: 30,
-                y2: 60,
+                top: '15%',
+                bottom: '15%',
+                left: '15%',
+                right: '15%',
             },
             xAxis: {
                 type: 'category',
@@ -216,7 +212,6 @@ $(function () {
                 axisTick: {
                     show: false,
                 },
-
                 axisLine: {
                     show: true,
                     lineStyle: {
@@ -236,7 +231,6 @@ $(function () {
                     rich: {
                         Sunny: {
                             height: 50,
-                            // width: 60,
                             padding: [0, 5, 0, 5],
                             align: 'center',
                         },
@@ -257,7 +251,7 @@ $(function () {
                             params = params && params.slice(0, 15);
                         }
 
-                        var provideNumber = splitNumber; //一行显示几个字
+                        var provideNumber = splitNumber;
                         var rowNumber = Math.ceil(paramsNameNumber / provideNumber) || 0;
                         if (paramsNameNumber > provideNumber) {
                             for (var p = 0; p < rowNumber; p++) {
@@ -271,7 +265,6 @@ $(function () {
                                 }
                                 newParamsName += tempStr;
                             }
-
                         } else {
                             newParamsName = params;
                         }
@@ -280,7 +273,6 @@ $(function () {
                     },
                     color: '#1AA1FD',
                 },
-
             },
             yAxis: {
                 axisLine: {
@@ -291,6 +283,8 @@ $(function () {
                     symbol: ['none', 'arrow']
                 },
                 type: 'value',
+                min: -2,  // 设置最小值
+                max: 24,  // 根据你折线的最高值调整这个数值，避免数据过于集中
                 axisTick: {
                     show: false
                 },
@@ -303,18 +297,17 @@ $(function () {
                         color: '#1AA1FD',
                         type: 'solid'
                     },
-                }
+                },
             },
             series: myData.seriesArr
-        }
-        // 使用刚指定的配置项和数据显示图表。
+        };
+
         myChart.setOption(option);
         window.addEventListener("resize", function () {
             myChart.resize();
         });
-
-
     }
+
 
     function echart_3() {
         var myChart = echarts.init(document.getElementById('chart_3'));
@@ -439,7 +432,7 @@ $(function () {
 
                 },
 
-               
+
                 geo: {
                     map: 'chart_3',
                     aspectScale: 0.75,
@@ -475,7 +468,7 @@ $(function () {
                         }
                     }
                 },
-    
+
                 series:[
                     {
                         tooltip: { // 显示的窗口
@@ -496,7 +489,7 @@ $(function () {
                                 }
                             }
                         },
-    
+
                         itemStyle: { //地图样式
                             normal: {
                                 areaColor: '#031525',
@@ -510,12 +503,12 @@ $(function () {
                         roam: true,
                         data: data
                     }
-                   
+
                 ]
             }
             myChart.setOption(option);
         })
-       
+
     }
     */
 
