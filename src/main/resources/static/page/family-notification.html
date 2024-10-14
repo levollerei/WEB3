@@ -166,6 +166,7 @@
         const layer = layui.layer;
         const elderlyNameInput = document.getElementById('elderlyName');
         const familyNameInput = document.getElementById('familyName');
+        const familyPhoneInput = document.getElementById('familyPhone');
         const contactNumberInput = document.getElementById('contactNumber');
         const locationInput = document.getElementById('location');
         const genderInput = document.getElementById('gender');
@@ -175,6 +176,7 @@
         function updatePreview() {
             const elderlyName = elderlyNameInput.value || "老人";
             const familyName = familyNameInput.value || "家属";
+            const familyPhone = familyPhoneInput.value || "家属电话";
             const contactNumber = contactNumberInput.value || "联系电话";
             const location = locationInput.value || "未知地点";
             const gender = genderInput.value || "性别";
@@ -195,14 +197,40 @@
 
         elderlyNameInput.addEventListener('input', updatePreview);
         familyNameInput.addEventListener('input', updatePreview);
+        familyPhoneInput.addEventListener('input', updatePreview);
         contactNumberInput.addEventListener('input', updatePreview);
         locationInput.addEventListener('input', updatePreview);
         genderInput.addEventListener('input', updatePreview);
         ageInput.addEventListener('input', updatePreview);
 
         form.on('submit(submitForm)', function (data) {
-            layer.msg('通知已发送');
-            return false;
+            // 发送 AJAX 请求
+            const smsData = {
+                phoneNumber: familyPhoneInput.value,
+                familyName: familyNameInput.value,
+                location: locationInput.value,
+                elderlyName: elderlyNameInput.value,
+                gender: genderInput.value,
+                age: ageInput.value,
+                contactNumber: contactNumberInput.value
+            };
+
+            $.ajax({
+                url: 'http://localhost:8080/api/sms/send', // 后端的 API 接口
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(smsData), // 转换为 JSON 字符串
+                success: function(response) {
+                    layer.msg('短信通知已发送'); // 弹出提示框
+                    console.log(response); // 打印后端返回的响应
+                },
+                error: function(xhr, status, error) {
+                    console.error('短信发送失败:', error);
+                    layer.msg('短信发送失败，请重试'); // 弹出提示框
+                }
+            });
+
+            return false; // 阻止默认表单提交
         });
     });
 </script>
