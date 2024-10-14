@@ -40,6 +40,14 @@ spring:
             enable: true
 
 
+# 阿里云短信配置
+aliyun:
+  sms:
+    access-key-id: LTAI5tPRQ2mjozsgWb5qpgLZ
+    access-key-secret: bJklOOdXvXc2tctX92njTWI8ldTIkJ
+    sign-name: 暖心归家
+    template-code: SMS_305062994
+
 mybatis:
   mapper-locations: classpath*:mapper/*Mapper.xml
   type-aliases-package: com.maka.pojo
