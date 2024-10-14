@@ -14,6 +14,21 @@
       margin-top: 10px;
       border-radius: 5px;
     }
+
+    .layui-form-label {
+      width: 120px; /* 固定标签宽度 */
+      white-space: nowrap; /* 防止换行 */
+      overflow: hidden; /* 超出部分隐藏 */
+      text-overflow: ellipsis; /* 显示省略号 */
+      display: inline-block; /* 保证标签与输入框同一行 */
+      text-align: right; /* 右对齐 */
+      margin-right: 10px; /* 给标签和输入框增加间距 */
+    }
+
+    .layui-input-block {
+      width: 1200px; /* 固定输入框容器宽度 */
+      display: inline-block; /* 使输入框与标签保持在同一行 */
+    }
   </style>
 </head>
 <body>
@@ -150,7 +165,7 @@
       const familyContact = $('input[name="family_contact"]').val();
       const message = `紧急通知！<br><br>尊敬的相关人员，<br><br>我们正在寻找一位失踪老人，请您密切注意。<br><br>失踪老人信息如下：<br>姓名: ${name}<br>性别: ${gender}<br>年龄: ${age}岁<br>走失时间: ${missingTime}<br>走失地点: ${missingLocation}<br>联系方式: ${familyContact}<br><br>请您如果有相关信息，请及时与家属联系。感谢您的配合！<br><br>此致，<br>紧急通知小组`;
 
-      $('#preview-content').html(message); // 使用 .html() 而不是 .text()
+      $('#preview-content').html(message); // 使用 .html() 保持换行效果
     });
   });
 </script>
