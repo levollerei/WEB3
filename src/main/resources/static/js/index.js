@@ -9,7 +9,7 @@ $(function () {
         var myChart = echarts.init(document.getElementById('oldAnalysis'));
         option = {
             title: {
-                text: '走失老人年龄分析',
+                text: '走失人口年龄分析',
                 top: 35,
                 left: 20,
                 textStyle: {
@@ -20,12 +20,11 @@ $(function () {
             tooltip: {
                 trigger: 'item',
                 formatter: "{b}: {c} ({d}%)",
-
             },
             legend: {
                 right: 20,
                 top: 35,
-                data: ['60-70', '70-80'],
+                data: ['0-14', '15-24', '25-44', '45-59', '60-70', '70-80', '80+'],
                 textStyle: {
                     color: '#fff'
                 }
@@ -34,22 +33,20 @@ $(function () {
                 type: 'pie',
                 radius: ['0', '60%'],
                 center: ['50%', '60%'],
-                color: ['#3fa7dc', '#044bbe', '#2ca3fd'],
+                color: ['#3fa7dc', '#044bbe', '#2ca3fd', '#4b9b7e', '#d4b106', '#d94e5d', '#845ec2'],
                 label: {
                     normal: {
                         formatter: '{b}\n{d}%'
                     },
-
                 },
-                data: [{
-                        value: 6,
-                        name: '60-70'
-                    },
-                    {
-                        value: 50,
-                        name: '70-80',
-                        selected: true
-                    }
+                data: [
+                    { value: 10, name: '0-14' },
+                    { value: 8, name: '15-24' },
+                    { value: 12, name: '25-44' },
+                    { value: 14, name: '45-59' },
+                    { value: 15, name: '60-70' },
+                    { value: 25, name: '70-80', selected: true },
+                    { value: 16, name: '80+' }
                 ]
             }]
         };
@@ -71,10 +68,10 @@ $(function () {
             legendLine: ['同期对比'],
             xAxis: ['一月', '二月', '三月', '四月', '五月', '六月'],
             yAxis: [
-                [8, 10, 10, 11, 4, 13]
+                [7, 12, 9, 15, 5, 11]
             ],
             lines: [
-                [10, 10, 9, 11, 7, 4]
+                [8, 10, 7, 12, 6, 9]
             ],
             barColor: ['#3FA7DC', '#7091C4', '#5170A2'], //柱子颜色 必填参数
             lineColor: ['#D9523F'], // 折线颜色
@@ -340,7 +337,7 @@ $(function () {
                     trigger: 'item',
                 },
                 title: {
-                    text: '老人走失区域分析',
+                    text: '走失人口区域分析',
                     x: 'center',
                     textStyle: {
                         color: '#FFF'
@@ -525,44 +522,29 @@ $(function () {
     function echart_4() {
         var myChart = echarts.init(document.getElementById('reason'));
         option = {
-            color: ['#44aff0', '#4777f5', '#5045f6', '#ad46f3', '#f845f1'],
+            color: ['#44aff0', '#4777f5', '#5045f6', '#ad46f3', '#f845f1', '#f9a825'],
             tooltip: {
                 trigger: 'item',
-                formatter: "{b} : {c}占比 ({d}%)",
+                formatter: "{b} : {c} 占比 ({d}%)",
                 textStyle: {
                     fontSize: 16,
                 },
             },
-
             series: [{
-
                 type: 'pie',
                 clockwise: false,
                 startAngle: 90,
                 radius: '75%',
                 center: ['44%', '50%'],
                 hoverAnimation: false,
-                roseType: 'radius', //area
-                data: [{
-                        value: 335,
-                        name: '精神疾病'
-                    },
-                    {
-                        value: 310,
-                        name: '老年痴呆'
-                    },
-                    {
-                        value: 234,
-                        name: '迷路'
-                    },
-                    {
-                        value: 135,
-                        name: '记忆力障碍'
-                    },
-                    {
-                        value: 148,
-                        name: '其他'
-                    }
+                roseType: 'radius',
+                data: [
+                    { value: 300, name: '迷路' },
+                    { value: 200, name: '记忆力障碍' },
+                    { value: 150, name: '精神健康问题' },
+                    { value: 100, name: '意外事故' },
+                    { value: 150, name: '老年痴呆' },
+                    { value: 100, name: '其他' }
                 ],
                 itemStyle: {
                     normal: {
@@ -599,9 +581,8 @@ $(function () {
                         }
                     }
                 },
-
             }],
-        }
+        };
         myChart.setOption(option);
 
     }
