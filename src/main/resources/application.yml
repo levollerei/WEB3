@@ -13,7 +13,7 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/rescue?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
-    password: 1234
+    password: MHMKUYK@7167
     username: root
   redis: # redis配置
     database: 0
@@ -38,6 +38,10 @@ spring:
             enable: true
           ssl:
             enable: true
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 100MB
 
 
 # 阿里云短信配置

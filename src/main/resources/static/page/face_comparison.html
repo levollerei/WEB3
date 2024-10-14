@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>人脸比对</title>
+</head>
+<body>
+<h1>人脸比对</h1>
+<form id="uploadForm">
+  <input type="file" id="faceImage" name="file" accept="image/*" required>
+  <button type="submit">Submit</button>
+</form>
+<p id="result"></p>
+
+<script src="../js/jquery-2.2.1.min.js"></script>
+<script>
+  $('#uploadForm').submit(function(event) {
+    event.preventDefault();
+    var formData = new FormData();
+    formData.append('file', $('#faceImage')[0].files[0]);
+
+    $.ajax({
+      url: 'http://localhost:8080/faceCompare',
+      type: 'POST',
+      data: formData,
+      contentType: false,
+      cache: false,
+      currentType: false,
+      processData: false,
+      success: function(response) {
+        const res = JSON.parse(response)
+        if (res.lostPerson === "无")
+          $('#result').text("没有找到匹配的走失人员");
+        else
+          $('#result').text('相似度最高的人: ' + res.lostPerson + ', 相似度: ' + res.similarity);
+      },
+      error: function() {
+        $('#result').text('Error occurred during comparison.');
+      }
+    });
+  });
+</script>
+</body>
+</html>
