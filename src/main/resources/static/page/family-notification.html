@@ -109,27 +109,15 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">性别</label>
-                <div class="layui-input-block">
-                    <input type="text" name="gender" required placeholder="请输入性别" autocomplete="off" class="layui-input" id="gender">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">年龄</label>
-                <div class="layui-input-block">
-                    <input type="number" name="age" required placeholder="请输入年龄" autocomplete="off" class="layui-input" id="age">
-                </div>
-            </div>
-            <div class="layui-form-item">
                 <label class="layui-form-label">最新线索地址</label>
                 <div class="layui-input-block">
                     <input type="text" name="location" required placeholder="请输入最新线索地址" autocomplete="off" class="layui-input" id="location">
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label"><i class="layui-icon layui-icon-friends"></i> 家属姓名</label>
+                <label class="layui-form-label">相似度</label>
                 <div class="layui-input-block">
-                    <input type="text" name="familyName" required placeholder="请输入家属姓名" autocomplete="off" class="layui-input" id="familyName">
+                    <input type="text" name="confirmationLevel" required placeholder="请输入相似度" autocomplete="off" class="layui-input" id="confirmationLevel">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -165,53 +153,68 @@
         const form = layui.form;
         const layer = layui.layer;
         const elderlyNameInput = document.getElementById('elderlyName');
-        const familyNameInput = document.getElementById('familyName');
         const familyPhoneInput = document.getElementById('familyPhone');
         const contactNumberInput = document.getElementById('contactNumber');
         const locationInput = document.getElementById('location');
-        const genderInput = document.getElementById('gender');
-        const ageInput = document.getElementById('age');
+        const confirmationLevelInput = document.getElementById('confirmationLevel');
         const notificationPreview = document.getElementById('notificationPreview');
 
         function updatePreview() {
             const elderlyName = elderlyNameInput.value || "老人";
-            const familyName = familyNameInput.value || "家属";
             const familyPhone = familyPhoneInput.value || "家属电话";
             const contactNumber = contactNumberInput.value || "联系电话";
             const location = locationInput.value || "未知地点";
-            const gender = genderInput.value || "性别";
-            const age = ageInput.value || "年龄";
+            const confirmationLevel = confirmationLevelInput.value || "0";
+
+            let confirmationMessage;
+            const confirmationValue = parseFloat(confirmationLevel);
+
+            if (confirmationValue >= 90) {
+                confirmationMessage = "与您提供的信息高度一致，我们认为这就是您要找的老人";
+            } else if (confirmationValue >= 60) {
+                confirmationMessage = "与您提供的信息较为相符，需要进一步核实身份";
+            } else {
+                confirmationMessage = "信息不足，无法确认身份";
+            }
 
             notificationPreview.innerHTML = `
                 <div class="preview-header">通知内容</div>
                 <div class="preview-body">
-                    尊敬的${familyName}，您好！<br>
+                    您好！<br>
                     我们在${location}附近<br>
-                    发现了一位疑似走失的老人,<br>
-                    符合您提供的描述（姓名：${elderlyName}，性别：${gender}，年龄：${age}）。<br>
-                    如需确认详细信息，请尽快与我们联系，<br>
+                    发现了一位疑似${elderlyName}的走失老人,<br>
+                    ${confirmationMessage}。<br>
+                    请尽快与我们联系，<br>
                     联系电话：${contactNumber}。谢谢！<br>
                 </div>
             `;
         }
 
         elderlyNameInput.addEventListener('input', updatePreview);
-        familyNameInput.addEventListener('input', updatePreview);
         familyPhoneInput.addEventListener('input', updatePreview);
         contactNumberInput.addEventListener('input', updatePreview);
         locationInput.addEventListener('input', updatePreview);
-        genderInput.addEventListener('input', updatePreview);
-        ageInput.addEventListener('input', updatePreview);
+        confirmationLevelInput.addEventListener('input', updatePreview);
 
         form.on('submit(submitForm)', function (data) {
+            // 创建短信内容变量
+            let confirmationMessage;
+            const confirmationValue = parseFloat(confirmationLevelInput.value) || 0; // 基于输入的相似度
+
+            if (confirmationValue > 90) {
+                confirmationMessage = "与您提供的信息高度一致，我们认为这就是您要找的老人。";
+            } else if (confirmationValue >= 60) {
+                confirmationMessage = "与您提供的信息较为相符，需要进一步核实身份。";
+            } else {
+                confirmationMessage = "信息不足，无法确认身份。";
+            }
+
             // 发送 AJAX 请求
             const smsData = {
                 phoneNumber: familyPhoneInput.value,
-                familyName: familyNameInput.value,
                 location: locationInput.value,
                 elderlyName: elderlyNameInput.value,
-                gender: genderInput.value,
-                age: ageInput.value,
+                confirmationLevel: confirmationMessage,
                 contactNumber: contactNumberInput.value
             };
 

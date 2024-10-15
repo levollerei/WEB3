@@ -49,8 +49,14 @@ aliyun:
   sms:
     access-key-id: LTAI5tPRQ2mjozsgWb5qpgLZ
     access-key-secret: bJklOOdXvXc2tctX92njTWI8ldTIkJ
-    sign-name: 暖心归家
-    template-code: SMS_474540218
+    sign-name: 智寻归途
+    template-code: SMS_474630233
+
+xfyun:
+  appid: 609426a3
+  apiKey: d8b1264bbeb1ed0095111f2e595f9ea9
+  apiSecret: NTUwMzRjMDQxMDAwNTY3NTYzYTg2YWZI
+  apiUrl: https://api.xfyun.cn/v1/service/v1/voiceprint/recognize
 
 mybatis:
   mapper-locations: classpath*:mapper/*Mapper.xml
