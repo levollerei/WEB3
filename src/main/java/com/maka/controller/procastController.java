@@ -7,12 +7,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @CrossOrigin
 @Controller
-public class DataViewController {
+public class procastController {
 
-    @RequestMapping("/data")
+    @RequestMapping("/chats")
     public String moveDataView(){
-        return "data-view.html";
+        return "echats.html";
     }
+
 
 
 }

@@ -159,9 +159,9 @@ public class RescueOldManController {
             return "data-view"; // 修改为对应的 data-view.html 路径
         }
 
-        @GetMapping("/chats")
+        @RequestMapping ("/chats")
         public String dataChats() {
-            return "page/echats"; // 修改为对应的 echats.html 路径
+            return "echats"; // 修改为对应的 echats.html 路径
         }
         @GetMapping("/face_comparison")
         public String faceComparison() {
