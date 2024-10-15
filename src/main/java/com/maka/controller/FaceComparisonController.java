@@ -24,4 +24,17 @@ public class FaceComparisonController {
             return ResponseEntity.status(500).body("Comparison failed.");
         }
     }
+
+    @PostMapping("/faceCompare_video")
+    public ResponseEntity<?> compareFacesFromVideo(@RequestParam("videoFile") MultipartFile file) {
+        try {
+            if (file.isEmpty()) {
+                return ResponseEntity.status(400).body("File is missing or invalid.");
+            }
+            String result = faceRegService.compareFaceFromVideo(file);
+            return ResponseEntity.ok(result);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Comparison failed.");
+        }
+    }
 }

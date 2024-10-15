@@ -1,13 +1,24 @@
 package com.maka.service.impl;
 
+import cn.hutool.http.useragent.UserAgent;
 import com.maka.service.FaceComparisonService;
 import com.baidu.aip.face.AipFace;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Base64;
+
+import org.bytedeco.javacv.Frame;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import org.bytedeco.javacv.FFmpegFrameGrabber;
+import org.bytedeco.javacv.Java2DFrameConverter;
+
+
 @Service
 public class FaceComparisonServiceImpl implements FaceComparisonService {
     // 初始化百度API客户端
@@ -46,5 +57,73 @@ public class FaceComparisonServiceImpl implements FaceComparisonService {
                         "}";
             throw new Exception("API Error: " + response.getString("error_msg"));
         }
+    }
+
+
+    @Override
+    public String compareFaceFromVideo(MultipartFile file) throws Exception{
+        String videoPath = null;
+        String frameDir = "frames/";
+        // 设置百度API参数
+        HashMap<String, Object> options = new HashMap<>();
+        options.put("image_type", "BASE64");
+        options.put("liveness_control", "LOW");
+        options.put("match_threshold", "50");
+
+        // 隔stepSecond秒抽一帧
+        int stepSecond = 1;
+        // 超过多少秒停止抽帧
+        int timeout = 10;
+        FFmpegFrameGrabber grabber = new FFmpegFrameGrabber(file.getInputStream());
+        grabber.setOption("timeout", "" + timeout * 1000000);
+
+        grabber.start();
+        long timeLength = grabber.getLengthInTime();
+        Frame frame = grabber.grabImage();
+        long startTime = frame.timestamp;
+        long timestamp = 0;
+        int second = 0;
+        int picNum = 0;
+
+        String name = "无";
+        double similarity = -1;
+        String bestFrame = "";
+        while(timestamp <= timeLength)
+        {
+            timestamp = startTime + second * 1000000L;
+            grabber.setTimestamp(timestamp);
+            frame = grabber.grabImage();
+            if(frame != null && frame.image != null)
+            {
+                picNum++;
+                Java2DFrameConverter converter = new Java2DFrameConverter();
+                BufferedImage image = converter.convert(frame);
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                ImageIO.write(image, "png", baos);
+                byte[] bytes = baos.toByteArray();
+                String imgStr = Base64.getEncoder().encodeToString(bytes);
+                JSONObject response = client.search(imgStr, "BASE64","lost_people", options);
+                if (response.getInt("error_code") == 0) {
+                    JSONObject result = response.getJSONObject("result").getJSONArray("user_list").getJSONObject(0);
+                    double score = result.getDouble("score");
+                    if (score >= similarity)
+                    {
+                        name = result.getString("user_id");
+                        similarity = score;
+                        bestFrame = imgStr;
+                    }
+                }
+            }
+            second += stepSecond;
+            if(picNum > (timeout+5) / stepSecond)
+                break;
+        }
+        grabber.stop();
+
+        return "{" +
+                "\"lostPerson\": \"" + name + "\"," +
+                "\"similarity\": " + similarity + "," +
+                "\"bestFrame\": \"" + bestFrame + "\"" +
+                "}";
     }
 }
