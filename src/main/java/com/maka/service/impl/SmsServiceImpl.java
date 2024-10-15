@@ -24,8 +24,9 @@ public class SmsServiceImpl implements SmsService {
     private String templateCode;
 
     @Override
-    public void sendSms(String phoneNumber, String familyName, String location,
-                        String elderlyName, String gender, String age, String contactNumber) {
+    public void sendSms(String phoneNumber, String location,
+                        String elderlyName, String confirmationLevel,
+                        String contactNumber) {
         try {
             Config config = new Config()
                     .setAccessKeyId(accessKeyId)
@@ -39,11 +40,9 @@ public class SmsServiceImpl implements SmsService {
                     .setPhoneNumbers(phoneNumber)
                     .setSignName(signName)
                     .setTemplateCode(templateCode)
-                    .setTemplateParam("{\"familyName\":\"" + familyName + "\","
-                            + "\"location\":\"" + location + "\","
+                    .setTemplateParam("{\"location\":\"" + location + "\","
                             + "\"elderlyName\":\"" + elderlyName + "\","
-                            + "\"gender\":\"" + gender + "\","
-                            + "\"age\":\"" + age + "\","
+                            + "\"confirmationLevel\":\"" + confirmationLevel + "\","
                             + "\"contactNumber\":\"" + contactNumber + "\"}");
 
             SendSmsResponse response = client.sendSms(request);

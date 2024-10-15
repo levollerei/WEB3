@@ -14,9 +14,8 @@ public class SmsController {
 
     @PostMapping("/send")
     public String sendSms(@RequestBody SmsRequest request) {
-        smsService.sendSms(request.getPhoneNumber(), request.getFamilyName(),
-                           request.getLocation(), request.getElderlyName(),
-                           request.getGender(), request.getAge(), request.getContactNumber());
+        smsService.sendSms(request.getPhoneNumber(), request.getLocation(),
+                request.getElderlyName(), request.getConfirmationLevel(), request.getContactNumber());
         return "短信已发送";
     }
 

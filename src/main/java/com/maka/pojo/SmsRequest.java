@@ -2,11 +2,9 @@ package com.maka.pojo;
 
 public class SmsRequest {
     private String phoneNumber;
-    private String familyName;
     private String location;
     private String elderlyName;
-    private String gender;
-    private String age;
+    private String confirmationLevel;  // 添加确认级别字段
     private String contactNumber;
 
     // Getters 和 Setters
@@ -16,14 +14,6 @@ public class SmsRequest {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    public String getFamilyName() {
-        return familyName;
-    }
-
-    public void setFamilyName(String familyName) {
-        this.familyName = familyName;
     }
 
     public String getLocation() {
@@ -42,20 +32,12 @@ public class SmsRequest {
         this.elderlyName = elderlyName;
     }
 
-    public String getGender() {
-        return gender;
+    public String getConfirmationLevel() {
+        return confirmationLevel;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public String getAge() {
-        return age;
-    }
-
-    public void setAge(String age) {
-        this.age = age;
+    public void setConfirmationLevel(String confirmationLevel) {
+        this.confirmationLevel = confirmationLevel;
     }
 
     public String getContactNumber() {
