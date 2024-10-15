@@ -103,10 +103,10 @@ $(function () {
                 radius: '60%',
                 center: ['50%', '50%'],
                 data: [
-                    {value: 40, name: '商场'},
-                    {value: 30, name: '公园'},
-                    {value: 20, name: '学校'},
-                    {value: 10, name: '饭店'}
+                    {value: 39.3, name: '商场'},
+                    {value: 29.8, name: '公园'},
+                    {value: 23.4, name: '学校'},
+                    {value: 7.5, name: '饭店'}
                 ],
                 emphasis: {
                     itemStyle: {

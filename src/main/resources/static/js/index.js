@@ -40,13 +40,13 @@ $(function () {
                     },
                 },
                 data: [
-                    { value: 10, name: '0-14' },
+                    { value: 17, name: '0-14' },
                     { value: 8, name: '15-24' },
-                    { value: 12, name: '25-44' },
-                    { value: 14, name: '45-59' },
-                    { value: 15, name: '60-70' },
+                    { value: 5, name: '25-44' },
+                    { value: 10, name: '45-59' },
+                    { value: 18, name: '60-70' },
                     { value: 25, name: '70-80', selected: true },
-                    { value: 16, name: '80+' }
+                    { value: 17, name: '80+' }
                 ]
             }]
         };
@@ -532,12 +532,12 @@ $(function () {
                 hoverAnimation: false,
                 roseType: 'radius',
                 data: [
-                    { value: 300, name: '迷路' },
-                    { value: 200, name: '记忆力障碍' },
-                    { value: 150, name: '精神健康问题' },
-                    { value: 100, name: '意外事故' },
-                    { value: 150, name: '老年痴呆' },
-                    { value: 100, name: '其他' }
+                    { value: 290, name: '迷路' },
+                    { value: 210, name: '记忆力障碍' },
+                    { value: 140, name: '精神健康问题' },
+                    { value: 90, name: '意外事故' },
+                    { value: 180, name: '老年痴呆' },
+                    { value: 90, name: '其他' }
                 ],
                 itemStyle: {
                     normal: {
