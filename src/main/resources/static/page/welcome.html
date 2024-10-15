@@ -33,6 +33,29 @@
             padding-right: 70px !important;text-overflow:ellipsis!important;overflow:hidden!important;white-space:nowrap!important;}
         .layuimini-notice-title {line-height:28px;font-size:14px;}
         .layuimini-notice-extra {position:absolute;top:50%;margin-top:-8px;right:16px;display:inline-block;height:16px;color:#999;}
+        /* 设置视频墙的布局，左右分栏 */
+        .video-wall {
+            display: flex;
+            justify-content: space-between;
+            height: 100vh;
+            margin-top: 20px;
+        }
+
+        /* 左侧和右侧的视频容器样式 */
+        .video-container {
+            width: 49%; /* 左右平分 */
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        video {
+            width: 100%;
+            height: auto;
+            margin-top: -480px; /* 向上移动视频 */
+        }
     </style>
 </head>
 <body>
@@ -128,12 +151,6 @@
                                             </a>
                                         </div>
                                         <div class="layui-col-xs3 layuimini-qiuck-module">
-                                            <a href="javascript:;" layuimini-content-href="page/register.html" data-title="队员注册" data-icon="fa fa-paint-brush">
-                                                <i class="fa fa-paint-brush"></i>
-                                                <cite>队员注册</cite>
-                                            </a>
-                                        </div>
-                                        <div class="layui-col-xs3 layuimini-qiuck-module">
                                             <a href="javascript:;" layuimini-content-href="page/volunteer-info.html" data-title="队员信息" data-icon="fa fa-file-text-o">
                                                 <i class="fa fa-file-text-o"></i>
                                                 <cite>队员信息</cite>
@@ -165,7 +182,7 @@
                                         </div>
                                         <div class="layui-col-xs3 layuimini-qiuck-module">
                                             <a href="javascript:;" layuimini-content-href="page/face_comparison.html" data-title="人脸比对" data-icon="fa fa-bell">
-                                                <i class="fa fa-bell"></i>
+                                                <i class="fa fa-id-card"></i>
                                                 <cite>人脸比对</cite>
                                             </a>
                                         </div>
@@ -235,8 +252,17 @@
                 </div>
             </div>
         </div>
+        <!-- 视频墙部分 -->
+        <div class="video-wall">
+            <div class="video-container">
+                <video src="../static/video/1.MP4" autoplay muted loop></video>
+            </div>
+            <div class="video-container">
+                <video src="../static/video/2.MP4" autoplay muted loop></video>
+            </div>
+        </div>
     </div>
-</div>
+    </div>
 <script src="../layuimini/lib/layui-v2.5.5/layui.js"></script>
 <script>
     layui.use(['element', 'calendar'], function() {
@@ -258,6 +284,65 @@
             alert('您选择的日期是：' + date);
         });
     });
+    // 左侧视频文件（视频1和视频2）
+    const leftVideos = [
+        '../static/video/1.MP4',
+        '../static/video/2.MP4'
+    ];
+
+    // 右侧视频文件（视频3、视频4和视频5）
+    const rightVideos = [
+        '../static/video/3.MP4',
+        '../static/video/4.MP4',
+        '../static/video/5.MP4'
+    ];
+
+    // 左侧视频元素
+    const leftVideoElement = document.getElementById('left-video');
+    let leftCurrentVideoIndex = 0;
+    leftVideoElement.src = leftVideos[leftCurrentVideoIndex];
+    leftVideoElement.play(); // 页面加载后立即播放左侧第一个视频
+
+    // 左侧视频播放结束时切换视频
+    leftVideoElement.addEventListener('ended', function() {
+        leftCurrentVideoIndex = (leftCurrentVideoIndex + 1) % leftVideos.length;
+        leftVideoElement.src = leftVideos[leftCurrentVideoIndex];
+        leftVideoElement.play();
+    });
+
+    // 右侧视频元素
+    const rightVideoElement = document.getElementById('right-video');
+    let rightCurrentVideoIndex = 0;
+    rightVideoElement.src = rightVideos[rightCurrentVideoIndex];
+    rightVideoElement.play(); // 页面加载后立即播放右侧第一个视频
+
+    // 右侧视频播放结束时切换视频
+    rightVideoElement.addEventListener('ended', function() {
+        rightCurrentVideoIndex = (rightCurrentVideoIndex + 1) % rightVideos.length;
+        rightVideoElement.src = rightVideos[rightCurrentVideoIndex];
+        rightVideoElement.play();
+    });
+
+    layui.use('layer', function(){
+        var layer = layui.layer;
+    });
+    var videoPlayer = document.getElementById('videoPlayer');
+    var currentVideoIndex = 0;
+
+    // 设置视频源并播放
+    function setVideoSource(index) {
+        videoPlayer.src = videoSources[index];
+        videoPlayer.play();
+    }
+
+    // 监听视频播放结束事件，切换到下一个视频
+    videoPlayer.addEventListener('ended', function() {
+        currentVideoIndex = (currentVideoIndex + 1) % videoSources.length; // 切换到下一个视频
+        setVideoSource(currentVideoIndex); // 设置并播放下一个视频
+    });
+
+    // 初次加载时播放第一个视频
+    setVideoSource(currentVideoIndex);
 </script>
 </body>
 </html>

@@ -165,7 +165,7 @@ public class RescueOldManController {
         }
         @GetMapping("/face_comparison")
         public String faceComparison() {
-            return "page/face_comparison"; 
+            return "page/face_comparison";
         }
 
         @GetMapping("/task-publish")
