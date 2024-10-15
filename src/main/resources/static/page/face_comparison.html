@@ -184,6 +184,20 @@
       font-size: 14px;
       color: #555;
     }
+    /* 移动文字向上 */
+    .text-move-up {
+      display: inline-block;
+      position: relative;
+      top: -25px; /* 调整这个值来控制向上移动的距离 */
+    }
+
+    /* GIF 图片的样式 */
+    .gif-image {
+      width: 70px;
+      height: 70px;
+      margin-left: 10px;
+      margin-top: 10px;
+    }
 
     @keyframes fadeIn {
       0% {
@@ -202,7 +216,10 @@
 <div class="container">
   <!-- 左侧主要卡片 -->
   <div class="main-card">
-    <h1>人脸比对 <img src="../img/face.gif" alt="GIF 动画" style="width: 70px; height: 70px; margin-left: 10px;margin-top: 10px;"></h1>
+    <h1>
+      <span class="text-move-up">人脸比对</span>
+      <img src="../img/face.gif" alt="GIF 动画" class="gif-image">
+    </h1>
     <p class="instructions">请上传清晰的照片进行人脸比对，比对结果会在几秒钟内显示。</p>
     <form id="uploadForm">
       <div class="input-container">
