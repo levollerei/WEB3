@@ -1,4 +1,3 @@
-<!--任务管理-->
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,8 +33,8 @@
         <td>2024-04-16</td>
         <td><span class="layui-badge layui-bg-blue">进行中</span></td>
         <td>
-          <button class="layui-btn layui-btn-sm">查看进度</button>
-          <button class="layui-btn layui-btn-danger layui-btn-sm">结束任务</button>
+          <button class="layui-btn layui-btn-sm" onclick="viewProgress('001', '李志强')">查看进度</button>
+          <button class="layui-btn layui-btn-danger layui-btn-sm" onclick="confirmEndTask('001')">结束任务</button>
         </td>
       </tr>
       <tr>
@@ -44,8 +43,8 @@
         <td>2024-05-16</td>
         <td><span class="layui-badge layui-bg-orange">待接收</span></td>
         <td>
-          <button class="layui-btn layui-btn-sm">查看进度</button>
-          <button class="layui-btn layui-btn-danger layui-btn-sm">结束任务</button>
+          <button class="layui-btn layui-btn-sm" onclick="viewProgress('002', '向前')">查看进度</button>
+          <button class="layui-btn layui-btn-danger layui-btn-sm" onclick="confirmEndTask('002')">结束任务</button>
         </td>
       </tr>
       <tr>
@@ -54,8 +53,8 @@
         <td>2024-03-19</td>
         <td><span class="layui-badge layui-bg-blue">进行中</span></td>
         <td>
-          <button class="layui-btn layui-btn-sm">查看进度</button>
-          <button class="layui-btn layui-btn-danger layui-btn-sm">结束任务</button>
+          <button class="layui-btn layui-btn-sm" onclick="viewProgress('003', '张德胜')">查看进度</button>
+          <button class="layui-btn layui-btn-danger layui-btn-sm" onclick="confirmEndTask('003')">结束任务</button>
         </td>
       </tr>
       <tr>
@@ -64,7 +63,7 @@
         <td>2024-08-17</td>
         <td><span class="layui-badge layui-bg-green">已结束</span></td>
         <td>
-          <button class="layui-btn layui-btn-sm">查看进度</button>
+          <button class="layui-btn layui-btn-sm" onclick="viewProgress('004', '王建国')">查看进度</button>
           <button class="layui-btn layui-btn-disabled layui-btn-sm">已结束</button>
         </td>
       </tr>
@@ -75,5 +74,39 @@
 </div>
 
 <script src="../layuimini/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script>
+  layui.use(['layer'], function() {
+    var layer = layui.layer;
+
+    // 查看进度的弹窗
+    window.viewProgress = function(taskId, personName) {
+      layer.open({
+        type: 1,  // 弹窗类型
+        title: '查看进度 - ' + personName,  // 弹窗标题
+        area: ['500px', '300px'],  // 弹窗宽高
+        content: '<div style="padding: 20px;">' +
+                '<p><strong>任务编号：</strong>' + taskId + '</p>' +
+                '<p><strong>人员姓名：</strong>' + personName + '</p>' +
+                '<p><strong>任务状态：</strong>正在进行...</p>' +
+                '<p><strong>进度：</strong>当前已经派出队伍进行搜索工作...</p>' +
+                '</div>',
+        btn: ['关闭']  // 弹窗底部按钮
+      });
+    };
+
+    // 结束任务的确认弹窗
+    window.confirmEndTask = function(taskId) {
+      layer.confirm('确定要结束任务 ' + taskId + ' 吗？', {
+        icon: 3,  // 警告图标
+        title: '确认结束任务',
+        btn: ['确定', '取消']  // 确认按钮和取消按钮
+      }, function(index) {
+        // 点击确定后执行的操作
+        layer.close(index);
+        layer.msg('任务 ' + taskId + ' 已成功结束！', { icon: 1 });
+      });
+    };
+  });
+</script>
 </body>
 </html>
