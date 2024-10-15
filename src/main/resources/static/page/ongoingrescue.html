@@ -25,21 +25,21 @@
         <div class="layui-card-body" style="padding-top: 40px;">
             <form class="layui-form" lay-filter="changeForm" style="margin: 0 auto;max-width: 460px;padding-top: 40px;">
                 <div class="layui-form-item">
-                    <label class="my_label layui-form-label">老人ID:</label>
+                    <label class="my_label layui-form-label">失踪人ID:</label>
                     <div class="layui-input-block">
                         <input name="id" disabled type="text"
                                class="layui-input"/>
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="my_label layui-form-label">老人姓名:</label>
+                    <label class="my_label layui-form-label">失踪人姓名:</label>
                     <div class="layui-input-block">
                         <input name="oldName" disabled type="text"
                                class="layui-input"/>
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class=" my_label layui-form-label">老人性别:</label>
+                    <label class=" my_label layui-form-label">失踪人性别:</label>
                     <div class="layui-input-block">
                         <select required name="oldGender" lay-verify="required">
                             <option value="1">男</option>
@@ -199,9 +199,9 @@
             cols: [[
                 {type: "checkbox", width: 30},
                 {field: 'id', width: 80, title: '编号', sort: true,align: "center"},
-                {field: 'oldName', width: 100, title: '老人姓名',align: "center"},
-                {field: 'oldGender', width: 100, title: '老人性别',align: "center"},
-                {field: 'oldAge', width: 100, title: '老人年龄',align: "center"},
+                {field: 'oldName', width: 100, title: '失踪人姓名',align: "center"},
+                {field: 'oldGender', width: 100, title: '失踪人性别',align: "center"},
+                {field: 'oldAge', width: 100, title: '失踪人年龄',align: "center"},
                 {field: 'lostTime', width: 180,title: '走失时间',align: "center", templet: '<div>{{layui.util.toDateString(d.lostTime, "yyyy-MM-dd HH:mm:ss") }}</div>',sort: true},
                 {field: 'lostPlace', width: 200, title: '走失地点',align: "center"},
                 {field: 'tel', width: 130, title: '联系人手机号'},
