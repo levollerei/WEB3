@@ -68,6 +68,12 @@
           "target": "_self"
         },
         {
+          "title": "失踪预测可视化",
+          "href": "page/echats.html",
+          "icon": "fa fa-bar-chart",
+          "target": "_self"
+        },
+        {
           "title": "任务中心",
           "icon": "fa fa-tasks",
           "href": "",
@@ -86,6 +92,12 @@
               "target": "_self"
             }
           ]
+        },
+        {
+          "title": "人脸比对",
+          "href": "page/face_comparison.html",
+          "icon": "fa fa-bell",
+          "target": "_self"
         },
         {
           "title": "通知家属",

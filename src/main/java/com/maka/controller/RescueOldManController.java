@@ -2,14 +2,9 @@ package com.maka.controller;
 
 
 import com.maka.component.MessageResponse;
-import com.maka.mapper.RescueOldManMapper;
 import com.maka.pojo.Clue;
-import com.maka.pojo.RescueOldMan;
-import com.maka.pojo.User;
 import com.maka.query.PageRequest;
 import com.maka.query.PageResponse;
-import com.maka.query.UserInfo;
-import com.maka.service.MessageService;
 import com.maka.service.RescueOldManService;
 import com.maka.service.UserService;
 import com.maka.vo.OldManInfoView;
@@ -30,7 +25,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -163,6 +157,15 @@ public class RescueOldManController {
         @GetMapping("/data-visualization")
         public String dataVisualization() {
             return "data-view"; // 修改为对应的 data-view.html 路径
+        }
+
+        @GetMapping("/chats")
+        public String dataChats() {
+            return "page/echats"; // 修改为对应的 echats.html 路径
+        }
+        @GetMapping("/face_comparison")
+        public String faceComparison() {
+            return "page/face_comparison"; 
         }
 
         @GetMapping("/task-publish")
