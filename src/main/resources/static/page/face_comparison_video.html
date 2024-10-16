@@ -184,20 +184,6 @@
       font-size: 14px;
       color: #555;
     }
-    /* 移动文字向上 */
-    .text-move-up {
-      display: inline-block;
-      position: relative;
-      top: -25px; /* 调整这个值来控制向上移动的距离 */
-    }
-
-    /* GIF 图片的样式 */
-    .gif-image {
-      width: 70px;
-      height: 70px;
-      margin-left: 10px;
-      margin-top: 10px;
-    }
 
     @keyframes fadeIn {
       0% {
@@ -216,16 +202,13 @@
 <div class="container">
   <!-- 左侧主要卡片 -->
   <div class="main-card">
-    <h1>
-      <span class="text-move-up">人脸比对</span>
-      <img src="../img/face.gif" alt="GIF 动画" class="gif-image">
-    </h1>
+    <h1>人脸比对 <img src="../img/face.gif" alt="GIF 动画" style="width: 70px; height: 70px; margin-left: 10px;margin-top: 10px;"></h1>
     <p class="instructions">请上传清晰的照片进行人脸比对，比对结果会在几秒钟内显示。</p>
-    <form id="uploadForm">
+    <form id="uploadForm" enctype="multipart/form-data">
       <div class="input-container">
-        <label for="faceImage">上传照片</label>
+        <label for="videoFile">上传视频</label>
         <div class="input-icon">
-          <input type="file" id="faceImage" name="file" accept="image/*" required>
+          <input type="file" id="videoFile" name="file" accept="video/*" required>
           <span class="icon"><i class="fas fa-camera"></i></span>
         </div>
       </div>
@@ -235,7 +218,7 @@
         <!-- 左侧上传图片预览 -->
         <div class="preview-box">
           <label>上传的图片</label>
-          <img id="preview-left" src="#" alt="预览上传的图片" style="display:none;">
+          <img id="preview-left" alt="预览上传的图片" style="display:none;">
         </div>
         <!-- 右侧数据库图片预览 -->
         <div class="preview-box">
@@ -247,6 +230,7 @@
       <button type="submit">立即比对</button>
     </form>
     <p id="result"></p>
+    <p id="result_temp"></p>
   </div>
 
   <!-- 右侧信息卡片 -->
@@ -264,38 +248,31 @@
 
 <script src="../js/jquery-2.2.1.min.js"></script>
 <script>
-  // 处理图片预览（左侧上传图片）
-  $('#faceImage').change(function() {
-    const file = this.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = function(event) {
-        $('#preview-left').attr('src', event.target.result).show();
-      }
-      reader.readAsDataURL(file);
-    } else {
-      $('#preview-left').hide();
-    }
-  });
-
   // 处理表单提交，进行人脸比对
   $('#uploadForm').submit(function(event) {
     event.preventDefault();
     var formData = new FormData();
-    formData.append('file', $('#faceImage')[0].files[0]);
+    var videoFile = $('#videoFile')[0].files[0];
+    formData.append('videoFile', videoFile);
 
     $.ajax({
-      url: '/compare',
+      url: '/faceCompare_video',
       type: 'POST',
       data: formData,
       processData: false,
       contentType: false,
-      success: function(res) {
-        if (res.success) {
+      success: function(response) {
+        const res = JSON.parse(response)
+        if (response && res.similarity > 0) {
+          $('#result_temp').text('走失人员为：' + res.lostPerson);
           $('#result').text('相似度为：' + res.similarity + '%');
-          $('#preview-right').attr('src', res.imageURL).show();
+          $('#preview-left').show();
+          document.getElementById("preview-left").src = "data:image/png;base64,"+res.bestFrame;
+
+          //$('#preview-right').attr('imageURL', res.imageURL).show();
         } else {
           $('#result').text('未找到匹配的图片');
+          $('#preview-left').hide();
           $('#preview-right').hide();
         }
       }
