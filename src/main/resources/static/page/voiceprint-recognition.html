@@ -32,6 +32,7 @@
       display: flex;
       justify-content: space-between;
       margin-bottom: 30px;
+      flex: 1; /* 让顶部区域填充剩余空间 */
     }
 
     .card {
@@ -100,6 +101,7 @@
     .bottom-section {
       display: flex;
       justify-content: space-between;
+      flex: 1; /* 让底部区域填充剩余空间 */
     }
 
     .upload-records, .help {
@@ -161,8 +163,6 @@
       justify-content: center; /* 垂直居中 */
       height: 300px; /* 设置一个合适的高度以便内容居中 */
     }
-
-
   </style>
 </head>
 <body>
@@ -172,7 +172,7 @@
   <!-- 上半部分 -->
   <div class="top-section">
     <!-- 声音新增功能 -->
-    <div class="card">
+    <div class="card" style="margin-right: 0;">
       <h1>声音新增</h1>
       <form id="addVoiceForm">
         <div class="input-container">
@@ -192,7 +192,7 @@
     </div>
 
     <!-- 数据比对功能 -->
-    <div class="card">
+    <div class="card" style="margin-left: 20px;">
       <h1>数据比对</h1>
       <div class="center-content"> <!-- 新增一个容器来居中内容 -->
         <form id="compareVoiceForm">
@@ -209,12 +209,12 @@
         </form>
       </div>
     </div>
+  </div>
 
-
-    <!-- 下半部分 -->
+  <!-- 下半部分 -->
   <div class="bottom-section">
     <!-- 声音上传记录 -->
-    <div class="upload-records card">
+    <div class="upload-records card" style="margin-right: 20px;">
       <h2>声音上传记录</h2>
       <ul id="uploadList">
         <li>张三的声音.mp3</li>
@@ -225,12 +225,11 @@
     </div>
 
     <!-- 帮助信息 -->
-    <div class="help card">
+    <div class="help card" style="margin-left: 20px;">
       <h2>帮助信息</h2>
       <p>请确保上传的音频清晰、无噪音，这样可以提高比对的准确性。文件格式支持 .mp3、.wav 等常见格式。</p>
     </div>
   </div>
-
 </div>
 
 <script src="../js/jquery-2.2.1.min.js"></script>
@@ -262,39 +261,31 @@
     });
   });
 
-
   // 比对音频表单提交处理
   $('#compareVoiceForm').submit(function(event) {
     event.preventDefault();
+    $('#loadingAnimation').show(); // 显示加载动画
 
     var formData = new FormData();
     formData.append('audioFile', $('#compareAudioFile')[0].files[0]);
 
-    // 传递 groupId 和 topK 参数
-    formData.append('groupId', 'iFLYTEK_examples_groupId');
-    formData.append('topK', 100);
-
-    // 显示加载动画，隐藏比对结果
-    $('#loadingAnimation').show();
-    $('#result').hide();
-
     $.ajax({
-      url: '/searchFeature',
+      url: '/compare',
       type: 'POST',
       data: formData,
       processData: false,
       contentType: false,
       success: function(res) {
-        // 隐藏加载动画，显示比对结果
-        $('#loadingAnimation').hide();
-        $('#result').text('查询结果：' + res.featureInfo + '相似度：' + res.similarity).show();
+        $('#loadingAnimation').hide(); // 隐藏加载动画
+        $('#result').text('相似度: ' + res.similarity + '%').show();
       },
       error: function() {
-        $('#loadingAnimation').hide();
+        $('#loadingAnimation').hide(); // 隐藏加载动画
         alert('比对失败，请重试。');
       }
     });
   });
 </script>
+
 </body>
 </html>
