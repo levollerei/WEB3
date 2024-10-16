@@ -1,20 +1,22 @@
 package com.maka.service.impl;
 
 import cn.hutool.http.useragent.UserAgent;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.maka.service.FaceComparisonService;
 import com.baidu.aip.face.AipFace;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Base64;
+import java.util.*;
 
 import org.bytedeco.javacv.Frame;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
+
 import org.bytedeco.javacv.FFmpegFrameGrabber;
 import org.bytedeco.javacv.Java2DFrameConverter;
 
@@ -43,12 +45,29 @@ public class FaceComparisonServiceImpl implements FaceComparisonService {
         if (response.getInt("error_code") == 0) {
             // 处理比对结果
             JSONObject result = response.getJSONObject("result").getJSONArray("user_list").getJSONObject(0);
-            String name = result.getString("user_id");
+            String uid = result.getString("user_id");
             double similarity = result.getDouble("score");
 
+            File jsonFile = new File("src/main/resources/static/data/table.json");
+            ObjectMapper objectMapper = new ObjectMapper();
+
+            Map<String, Object> table = objectMapper.readValue(jsonFile, Map.class);
+            List<Map<String, Object>> data = (List<Map<String, Object>>)table.get("data");
+
+            String name = "无";
+            String img = "";
+            for (var datum: data)
+            {
+                if (Objects.equals(datum.get("uid"), uid))
+                {
+                    name = (String)datum.get("oldName");
+                    img = (String) datum.get("img");
+                }
+            }
             return "{" +
                     "\"lostPerson\": \"" + name + "\"," +
-                    "\"similarity\": " + similarity +
+                    "\"similarity\": " + similarity + ","+
+                    "\"img\": \"" + img + "\"" +
                     "}";
         } else {
             if(response.getInt("error_code") == 222207)
@@ -85,7 +104,7 @@ public class FaceComparisonServiceImpl implements FaceComparisonService {
         int second = 0;
         int picNum = 0;
 
-        String name = "无";
+        String uid = "无";
         double similarity = -1;
         String bestFrame = "";
         while(timestamp <= timeLength)
@@ -108,7 +127,7 @@ public class FaceComparisonServiceImpl implements FaceComparisonService {
                     double score = result.getDouble("score");
                     if (score >= similarity)
                     {
-                        name = result.getString("user_id");
+                        uid = result.getString("user_id");
                         similarity = score;
                         bestFrame = imgStr;
                     }
@@ -120,10 +139,30 @@ public class FaceComparisonServiceImpl implements FaceComparisonService {
         }
         grabber.stop();
 
+
+
+        File jsonFile = new File("src/main/resources/static/data/table.json");
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        Map<String, Object> table = objectMapper.readValue(jsonFile, Map.class);
+        List<Map<String, Object>> data = (List<Map<String, Object>>)table.get("data");
+
+        String name = "无";
+        String img = "";
+        for (var datum: data)
+        {
+            if (Objects.equals(datum.get("uid"), uid))
+            {
+                name = (String)datum.get("oldName");
+                img = (String) datum.get("img");
+            }
+        }
+
         return "{" +
                 "\"lostPerson\": \"" + name + "\"," +
                 "\"similarity\": " + similarity + "," +
-                "\"bestFrame\": \"" + bestFrame + "\"" +
+                "\"bestFrame\": \"" + bestFrame + "\"," +
+                "\"img\": \"" + img + "\"" +
                 "}";
     }
 }

@@ -267,9 +267,9 @@
           $('#result_temp').text('走失人员为：' + res.lostPerson);
           $('#result').text('相似度为：' + res.similarity + '%');
           $('#preview-left').show();
+          $('#preview-right').show();
           document.getElementById("preview-left").src = "data:image/png;base64,"+res.bestFrame;
-
-          //$('#preview-right').attr('imageURL', res.imageURL).show();
+          document.getElementById("preview-right").src = res.img;
         } else {
           $('#result').text('未找到匹配的图片');
           $('#preview-left').hide();
