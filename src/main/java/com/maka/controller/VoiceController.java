@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Base64;
 
 @RestController
 @RequestMapping("/api/voice")
@@ -38,6 +39,50 @@ public class VoiceController {
             return ResponseEntity.status(500).body(new ResponseMessage("文件处理失败: " + e.getMessage()));
         }
     }
+
+    @PostMapping("/authenticateAll")
+    public ResponseEntity<?> authenticateWithAll(@RequestParam("audioFile") MultipartFile audioFile) {
+        if (audioFile.isEmpty()) {
+            return ResponseEntity.badRequest().body("音频文件不能为空");
+        }
+
+        try {
+            byte[] audioData = audioFile.getBytes();
+            String result = voiceService.authenticateWithAll(audioData);
+            return ResponseEntity.ok(new ResponseMessage(result));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(new ResponseMessage("文件处理失败: " + e.getMessage()));
+        }
+    }
+
+    @PostMapping("/registerVoice")
+    public ResponseEntity<?> registerVoice(@RequestParam("userId") String userId,
+                                           @RequestParam("voiceId") String voiceId,
+                                           @RequestParam("audioFile") MultipartFile audioFile) {
+        if (audioFile.isEmpty()) {
+            return ResponseEntity.badRequest().body("音频文件不能为空");
+        }
+
+        try {
+            // 读取音频文件数据
+            byte[] audioData = audioFile.getBytes();
+            // 将音频数据转换为 Base64
+            String audioBase64 = Base64.getEncoder().encodeToString(audioData);
+
+            // 保存声纹到临时数组
+            voiceService.saveVoicePrint(userId, voiceId, audioBase64);
+
+            // 返回成功的响应
+            return ResponseEntity.ok(new ResponseMessage("声纹注册成功"));
+        } catch (IOException e) {
+            e.printStackTrace();
+            // 如果文件处理出现问题，返回错误响应
+            return ResponseEntity.status(500).body(new ResponseMessage("文件处理失败: " + e.getMessage()));
+        }
+    }
+
+
 
     // 创建一个内部类来封装返回消息
     static class ResponseMessage {

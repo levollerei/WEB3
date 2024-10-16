@@ -56,7 +56,8 @@ xfyun:
   appid: 609426a3
   apiKey: d8b1264bbeb1ed0095111f2e595f9ea9
   apiSecret: NTUwMzRjMDQxMDAwNTY3NTYzYTg2YWZI
-  apiUrl: https://api.xfyun.cn/v1/service/v1/voiceprint/recognize
+  apiUrl: https://api.xf-yun.com/v1/private/s782b4996
+  requestUrl: https://api.xf-yun.com/v1/private/s782b4996
 
 mybatis:
   mapper-locations: classpath*:mapper/*Mapper.xml
