@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>暖心归家后台管理-登陆</title>
+		<title>智寻归途后台管理-登陆</title>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta http-equiv="Access-Control-Allow-Origin" content="*">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -105,7 +105,7 @@
 			.login-main .login-top
 			{
 				height:117px;
-				background-color:#45aba8;
+				background-color:#007bff;
 				border-radius:12px 12px 0 0;
 				font-family:SourceHanSansCN-Regular;
 				font-size:30px;
@@ -168,19 +168,27 @@
 				width:288px;
 				margin:0 auto;
 				}
-			body
-			{
-				background-image:url("../layuimini/images/bgd2.png");
-				height:100%;
-				width:100%;
-				padding-bottom:41.8%;
-				overflow:hidden;
-				background-position:50%;
-				background-repeat:no-repeat;
-				background-size:cover;
-				background-color：rgba（0 , 0 , 0 , .7）
+			body {
+				height: 100%;
+				width: 100%;
+				padding-bottom: 41.8%;
+				overflow: hidden;
+				background-position: 50%;
+				background-repeat: no-repeat;
+				background-size: cover;
+				background-color: rgba(0, 0, 0, 0.7);
+			}
 
-				}
+			#background-video {
+				position: fixed;
+				right: 0;
+				bottom: 0;
+				min-width: 100%;
+				min-height: 100%;
+				z-index: -1;
+				object-fit: cover;
+			}
+
 			input::-webkit-input-placeholder {
 				color:#a6aebf;
 				}
@@ -229,7 +237,7 @@
 			{
 				font-stretch:normal;
 				letter-spacing:0;
-				color:#45aba8;
+				color:#007bff;
 				text-decoration:none;
 				position:absolute;
 				right:62px;
@@ -238,7 +246,7 @@
 			{
 				width:288px;
 				height:40px;
-				background-color:#45aba8;
+				background-color:#007bff;
 				border-radius:16px;
 				margin:24px auto 0;
 				text-align:center;
@@ -298,10 +306,13 @@
     </style>
 	</head>
 	<body>
+		<video autoplay muted loop id="background-video">
+			<source src="static/img/9OLD.mp4" type="video/mp4">
+		</video>
 		<div class="main-body">
 			<div class="login-main">
 				<div class="login-top">
-					<span>暖心归家-后台登录</span>
+					<span>智寻归途-后台登录</span>
 					<span class="bg1"></span>
 					<span class="bg2"></span>
 				</div>
