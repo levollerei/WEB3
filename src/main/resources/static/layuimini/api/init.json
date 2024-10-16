@@ -93,9 +93,31 @@
             }
           ]
         },
+
+
         {
           "title": "人脸比对",
-          "href": "page/face_comparison.html",
+          "href": "",
+          "icon": "fa fa-group",
+          "target": "_self",
+          "child": [
+            {
+              "title": "图片比对",
+              "href": "page/face_comparison.html",
+              "icon": "fa fa-bell",
+              "target": "_self"
+            },
+            {
+              "title": "视频比对",
+              "href": "page/face_comparison_video.html",
+              "icon": "fa fa-paint-brush",
+              "target": "_self"
+            }
+          ]
+        },
+        {
+          "title": "声纹识别",
+          "href": "page/voiceprint-recognition.html",
           "icon": "fa fa-bell",
           "target": "_self"
         },

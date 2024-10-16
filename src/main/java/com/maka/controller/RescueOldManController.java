@@ -183,6 +183,16 @@ public class RescueOldManController {
             return "page/family-notification"; // 对应 templates/family-notification.html
         }
 
+        @GetMapping("/voiceprint-recognition")
+        public String voiceprintRecognition() {
+            return "page/voiceprint-recognition"; // 对应 templates/family-notification.html
+        }
+
+        @GetMapping("/face_comparison_video")
+        public String faceComparisonVideon() {
+            return "page/face_comparison_video"; // 对应 templates/family-notification.html
+        }
+
         @GetMapping("/map-management")
         public String mapManagement() {
             return "page/map-management"; // 对应 templates/map-management.html
