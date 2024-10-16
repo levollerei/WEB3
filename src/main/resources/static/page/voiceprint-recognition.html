@@ -219,11 +219,17 @@
   // 新增音频表单提交处理
   $('#addVoiceForm').submit(function(event) {
     event.preventDefault();
+
     var formData = new FormData();
-    formData.append('file', $('#newAudioFile')[0].files[0]);
+    formData.append('audioFile', $('#newAudioFile')[0].files[0]);
+
+    // 添加额外的参数，如 groupId, featureId, featureInfo
+    formData.append('groupId', 'iFLYTEK_examples_groupId');
+    formData.append('featureId', 'example_featureId');
+    formData.append('featureInfo', 'example_featureInfo');
 
     $.ajax({
-      url: '/add-voice',
+      url: '/createFeature',
       type: 'POST',
       data: formData,
       processData: false,
@@ -238,18 +244,24 @@
     });
   });
 
+
   // 比对音频表单提交处理
   $('#compareVoiceForm').submit(function(event) {
     event.preventDefault();
+
     var formData = new FormData();
-    formData.append('file', $('#compareAudioFile')[0].files[0]);
+    formData.append('audioFile', $('#compareAudioFile')[0].files[0]);
+
+    // 传递 groupId 和 topK 参数
+    formData.append('groupId', 'iFLYTEK_examples_groupId');
+    formData.append('topK', 100);
 
     // 显示加载动画，隐藏比对结果
     $('#loadingAnimation').show();
     $('#result').hide();
 
     $.ajax({
-      url: '/voice-compare',
+      url: '/searchFeature',
       type: 'POST',
       data: formData,
       processData: false,
@@ -257,7 +269,7 @@
       success: function(res) {
         // 隐藏加载动画，显示比对结果
         $('#loadingAnimation').hide();
-        $('#result').text('相似度为：' + res.similarity + '%').show();
+        $('#result').text('查询结果：' + res.featureInfo + '相似度为：' + (res.similarity * 100) + '%').show();
       },
       error: function() {
         alert('音频比对失败，请重试。');
@@ -266,6 +278,7 @@
       }
     });
   });
+
 </script>
 
 </body>

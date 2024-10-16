@@ -3,6 +3,7 @@ package com.maka.utils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.google.gson.Gson;
+import com.maka.vo.SearchFeatureResult;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -44,7 +45,8 @@ public class SearchFeature {
     }
 
     // 请求主方法
-    public String doRequest() throws Exception {
+    // 请求主方法，返回相似度和featureInfo
+    public SearchFeatureResult doRequest() throws Exception {
         URL realUrl = new URL(buildRequestUrl());
         URLConnection connection = realUrl.openConnection();
         HttpURLConnection httpURLConnection = (HttpURLConnection) connection;
@@ -70,12 +72,14 @@ public class SearchFeature {
         // 获取返回的响应
         String response = readAllBytes(is);
 
-        // 处理响应
+        // 处理响应并返回最高相似度和featureInfo
         return processResponse(response);
     }
 
+
     // 处理响应，解码text并找到最高分数的featureInfo
-    private String processResponse(String response) {
+    // 处理响应，解码text并找到最高分数的featureInfo和相似度
+    private SearchFeatureResult processResponse(String response) {
         // 使用Gson解析初始的JSON响应
         Gson gson = new Gson();
         JsonParse jsonParse = gson.fromJson(response, JsonParse.class);
@@ -94,11 +98,12 @@ public class SearchFeature {
         ScoreItem maxScoreItem = scoreList.stream().max(Comparator.comparingDouble(ScoreItem::getScore)).orElse(null);
 
         if (maxScoreItem != null) {
-            return maxScoreItem.getFeatureInfo();  // 返回最高分的featureInfo
+            return new SearchFeatureResult(maxScoreItem.getScore(), maxScoreItem.getFeatureInfo());  // 返回相似度和featureInfo
         }
 
-        return "No valid score found";
+        return new SearchFeatureResult(0.0, "No valid score found");  // 如果没有找到有效分数，返回0和提示信息
     }
+
 
     // 组装请求URL
     public String buildRequestUrl() {

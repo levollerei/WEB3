@@ -1,6 +1,7 @@
 package com.maka.controller;
 
 import com.maka.service.VoiceService;
+import com.maka.vo.SearchFeatureResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,7 +28,7 @@ public class VoiceController {
     }
 
     @PostMapping("/searchFeature")
-    public String searchFeature(
+    public SearchFeatureResult searchFeature(
             @RequestParam String groupId,
             @RequestParam int topK,
             @RequestParam("audioFile") MultipartFile audioFile) {

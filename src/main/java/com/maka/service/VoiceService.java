@@ -1,5 +1,6 @@
 package com.maka.service;
 
+import com.maka.vo.SearchFeatureResult;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface VoiceService {
@@ -27,5 +28,5 @@ public interface VoiceService {
      * @param audioFile 音频文件
      * @return 服务响应结果
      */
-    String searchFeature(String groupId, int topK, MultipartFile audioFile);
+    SearchFeatureResult searchFeature(String groupId, int topK, MultipartFile audioFile);
 }

@@ -5,6 +5,7 @@ import com.maka.utils.CreateFeature;
 import com.maka.utils.CreateGroup;
 import com.maka.utils.SearchFeature;
 import com.maka.config.XfyunConfig;
+import com.maka.vo.SearchFeatureResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -64,7 +65,7 @@ public class VoiceServiceImpl implements VoiceService {
     }
 
     @Override
-    public String searchFeature(String groupId, int topK, MultipartFile audioFile) {
+    public SearchFeatureResult searchFeature(String groupId, int topK, MultipartFile audioFile) {
         try {
             byte[] audioData = audioFile.getBytes();
 
@@ -77,13 +78,17 @@ public class VoiceServiceImpl implements VoiceService {
                     audioData
             );
 
-            return searchFeature.doRequest();
+            // 调用 doRequest 方法获取相似度和 featureInfo
+            SearchFeatureResult result = searchFeature.doRequest();
+
+            return result;  // 直接返回 SearchFeatureResult 对象
+
         } catch (IOException e) {
             e.printStackTrace();
-            return "Error: " + e.getMessage();
+            return new SearchFeatureResult(0.0, "Error: " + e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
-            return "Error: " + e.getMessage();
+            return new SearchFeatureResult(0.0, "Error: " + e.getMessage());
         }
     }
 }
