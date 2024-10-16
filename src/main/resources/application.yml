@@ -53,11 +53,11 @@ aliyun:
     template-code: SMS_474630233
 
 xfyun:
-  appid: 609426a3
-  apiKey: d8b1264bbeb1ed0095111f2e595f9ea9
-  apiSecret: NTUwMzRjMDQxMDAwNTY3NTYzYTg2YWZI
-  apiUrl: https://api.xf-yun.com/v1/private/s782b4996
   requestUrl: https://api.xf-yun.com/v1/private/s782b4996
+  appId: 609426a3
+  apiKey: d8b1264bbeb1ed0095111f2e595f9ea9
+  apiSecret: NTUwMzRjMDQxMDAwNTY3NTYzYTg2YWZl
+
 
 mybatis:
   mapper-locations: classpath*:mapper/*Mapper.xml
