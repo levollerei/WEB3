@@ -8,6 +8,95 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="../layuimini/lib/layui-v2.5.5/css/layui.css" media="all">
     <link rel="stylesheet" href="../layuimini/css/public.css" media="all">
+    <style>
+        body {
+            background-color: #f4f7f9;
+        }
+
+        .layuimini-main {
+            min-height: 500px;
+            padding: 20px; /* 增加内边距 */
+        }
+
+        .table-search-fieldset {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            transition: box-shadow 0.3s ease; /* 动画效果 */
+        }
+
+        .table-search-fieldset:hover {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* 悬停效果 */
+        }
+
+        .table-stats {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-around; /* 统计项之间均匀分布 */
+            margin-bottom: 20px;
+            transition: transform 0.3s ease; /* 动画效果 */
+        }
+
+        .table-stats:hover {
+            transform: scale(1.02); /* 悬停放大效果 */
+        }
+
+        .stat-item {
+            text-align: center;
+            transition: color 0.3s ease; /* 动画效果 */
+        }
+
+        .stat-item:hover {
+            color: #0056b3; /* 悬停变色效果 */
+        }
+
+        .stat-item h3 {
+            margin: 0;
+            font-size: 24px;
+            color: #003366; /* 统计项标题颜色 */
+        }
+
+        .stat-item p {
+            margin: 5px 0 0;
+            color: #888; /* 统计项描述颜色 */
+        }
+
+        .layui-form-item {
+            margin-bottom: 15px;
+        }
+
+        .layui-btn {
+            margin-right: 10px;
+        }
+
+        .layui-table {
+            background-color: #ffffff;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .layui-table th {
+            background-color: #003366;
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        .layui-table td {
+            padding: 15px;
+        }
+
+        .layui-table tr:nth-child(even) {
+            background-color: #f7f7f7;
+        }
+
+        .layui-table tr:hover {
+            background-color: #e9ecef;
+        }
+    </style>
 </head>
 <body>
 <div class="layuimini-container">
@@ -15,47 +104,59 @@
 
         <fieldset class="table-search-fieldset">
             <legend>搜索信息</legend>
-            <div style="margin: 10px 10px 10px 10px">
-                <form class="layui-form layui-form-pane" action="">
-                    <div class="layui-form-item">
-                        <div class="layui-inline">
-                            <label class="layui-form-label">队员姓名</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="name" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-<!--                        <div class="layui-inline">-->
-<!--                            <label class="layui-form-label">队员性别</label>-->
-<!--                            <div class="layui-input-inline">-->
-<!--                                <input type="text" name="gender" autocomplete="off" class="layui-input">-->
-<!--                            </div>-->
-<!--                        </div>-->
-                        <div class="layui-inline">
-                            <label class="layui-form-label">队员手机号</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="phone" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">当前状态</label>
-                            <div class="layui-input-block">
-                                <select name="state" lay-filter="aihao">
-                                    <option value="">请选择</option>
-                                    <option value="0">空闲中</option>
-                                    <option value="1">有任务</option>
-                                    <option value="2">暂时离职</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <button type="submit" class="layui-btn layui-btn-primary" lay-submit
-                                    lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索
-                            </button>
+            <form class="layui-form layui-form-pane" action="">
+                <div class="layui-row layui-col-space10">
+                    <div class="layui-col-xs4">
+                        <label class="layui-form-label">队员姓名</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="name" autocomplete="off" class="layui-input">
                         </div>
                     </div>
-                </form>
-            </div>
+                    <div class="layui-col-xs4">
+                        <label class="layui-form-label">队员手机号</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="phone" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-col-xs4">
+                        <label class="layui-form-label">当前状态</label>
+                        <div class="layui-input-block">
+                            <select name="state" lay-filter="aihao">
+                                <option value="">请选择</option>
+                                <option value="0">空闲中</option>
+                                <option value="1">有任务</option>
+                                <option value="2">暂时离职</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <button type="submit" class="layui-btn layui-btn-primary" lay-submit lay-filter="data-search-btn">
+                        <i class="layui-icon"></i> 搜 索
+                    </button>
+                </div>
+            </form>
         </fieldset>
+
+        <div class="table-stats">
+            <div class="stat-item">
+                <h3>100</h3>
+                <p>总队员数</p>
+            </div>
+            <div class="stat-item">
+                <h3>20</h3>
+                <p>有任务队员</p>
+            </div>
+            <div class="stat-item">
+                <h3>80</h3>
+                <p>空闲队员</p>
+            </div>
+            <div class="stat-item">
+                <h3>5</h3>
+                <p>暂时离职</p>
+            </div>
+        </div>
 
         <script type="text/html" id="toolbarDemo">
             <div class="layui-btn-container">
@@ -80,10 +181,8 @@
             form = layui.form,
             table = layui.table;
 
-
         table.render({
             elem: '#currentTableId',
-            // url: 'http://localhost:8080/getPageUser',
             url: '../data/table1.json',
             request: {
                 pageName: 'currentPage',
@@ -102,14 +201,13 @@
                 {field: 'gender', width: 110, title: '性别', sort: true,align:"center"},
                 {field: 'age', width: 80, title: '年龄', sort: true,align:"center"},
                 {field: 'phone', title: '手机号', width: 180,align:"center"},
-                // {field: 'password', title: '密码', width: 150,align:"center"},
                 {field: 'lastLoginPlace', title: '上一次登录地', width: 220,align:"center"},
                 {field: 'rescueNum', width: 120, title: '历史救援数', sort: true,align:"center"},
                 {field: 'status', width: 120, title: '当前状态', sort: true,align: "center",templet:function(d){
                         if(d.status==0) return "<button class=\"layui-btn layui-btn-sm  layui-btn-radius layui-btn-normal\">有任务</button>";
                         else if(d.status==1) return "<button class=\"layui-btn layui-btn-sm layui-btn-radius layui-btn-primary\">空闲中</button>";
                         else if(d.status==2) return "<button class=\"layui-btn layui-btn-sm layui-btn-radius layui-btn-danger\">暂时离职</button>"
-                }},
+                    }},
                 {title: '操作', width: 150, toolbar: '#currentTableBar', align: "center"}
             ]],
             limits: [10, 15, 20, 25, 50, 100],
@@ -117,94 +215,31 @@
             page: true,
             response: {
                 statusName: 'code', //规定返回的状态码字段为code
-                statusCode: 200 //规定成功的状态码味200
+                statusCode: 200 //规定成功的状态码为200
             },
             skin: 'line'
         });
 
         // 监听搜索操作
         form.on('submit(data-search-btn)', function (data) {
-            var result =data.field;
+            var result = data.field;
             console.log(result);
-            //执行搜索重载
-            table.reload('currentTableId', {
-                page: {
-                    curr: 1
-                },
-                url: window.baseUrl+"/getPageUserByCondition",
-                request: {
-                    pageName: 'currentPage',
-                    limitName: 'pageSize'
-                },
-                where: {
-                    "name": result.name,
-                    "gender": result.gender,
-                    "phone": result.phone
-                }, response: {
-                    statusName: 'code', //规定返回的状态码字段为code
-                    statusCode: 200 //规定成功的状态码味200
-                }
-            }, 'data');
-
-            return false;
+            // 在这里添加你要处理搜索的逻辑
+            return false; // 阻止表单跳转
         });
 
-        /**
-         * toolbar监听事件
-         */
-        table.on('toolbar(currentTableFilter)', function (obj) {
-            if (obj.event === 'add') {  // 监听添加操作
-                var index = layer.open({
-                    title: '添加用户',
-                    type: 2,
-                    shade: 0.2,
-                    maxmin: true,
-                    shadeClose: true,
-                    area: ['100%', '100%'],
-                    content: '../page/table/add.html',
-                });
-                $(window).on("resize", function () {
-                    layer.full(index);
-                });
-            } else if (obj.event === 'delete') {  // 监听删除操作
-                var checkStatus = table.checkStatus('currentTableId')
-                    , data = checkStatus.data;
-                layer.alert(JSON.stringify(data));
-            }
-        });
-
-        //监听表格复选框选择
-        table.on('checkbox(currentTableFilter)', function (obj) {
-            console.log(obj)
-        });
-
+        // 监听工具条
         table.on('tool(currentTableFilter)', function (obj) {
             var data = obj.data;
             if (obj.event === 'edit') {
-
-                var index = layer.open({
-                    title: '编辑用户',
-                    type: 2,
-                    shade: 0.2,
-                    maxmin: true,
-                    shadeClose: true,
-                    area: ['100%', '100%'],
-                    content: '../page/table/edit.html',
-                });
-                $(window).on("resize", function () {
-                    layer.full(index);
-                });
-                return false;
+                // 编辑操作
+                console.log('编辑:', data);
             } else if (obj.event === 'delete') {
-                layer.confirm('真的删除行么', function (index) {
-                    obj.del();
-                    layer.close(index);
-                });
+                // 删除操作
+                console.log('删除:', data);
             }
         });
-
     });
 </script>
-
 </body>
 </html>
