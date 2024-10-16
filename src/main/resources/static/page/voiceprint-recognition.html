@@ -180,11 +180,11 @@
           <input type="file" id="newAudioFile" name="file" accept="audio/*" required>
         </div>
         <div class="input-container">
-          <label for="featureId">Feature ID</label>
+          <label for="featureId">声纹编号</label>
           <input type="text" id="featureId" name="featureId" required>
         </div>
         <div class="input-container">
-          <label for="featureInfo">Feature Info</label>
+          <label for="featureInfo">声纹来源</label>
           <input type="text" id="featureInfo" name="featureInfo" required>
         </div>
         <button type="submit">新增音频</button>
@@ -242,6 +242,7 @@
     formData.append('audioFile', $('#newAudioFile')[0].files[0]);
 
     // 添加额外的参数，如 featureId, featureInfo
+    formData.append('groupId', 'iFLYTEK_examples_groupId');
     formData.append('featureId', $('#featureId').val());
     formData.append('featureInfo', $('#featureInfo').val());
 
@@ -269,15 +270,24 @@
     var formData = new FormData();
     formData.append('audioFile', $('#compareAudioFile')[0].files[0]);
 
+    // 传递 groupId 和 topK 参数
+    formData.append('groupId', 'iFLYTEK_examples_groupId');
+    formData.append('topK', 100);
+
     $.ajax({
-      url: '/compare',
+      url: '/searchFeature',
       type: 'POST',
       data: formData,
       processData: false,
       contentType: false,
       success: function(res) {
         $('#loadingAnimation').hide(); // 隐藏加载动画
-        $('#result').text('相似度: ' + res.similarity + '%').show();
+        if ((res.similarity * 100) >= 80) {
+          $('#result').text('查询结果：' + res.featureInfo + '  相似度为：' + (res.similarity * 100) + '%').show();
+        }
+        else {
+          $('#result').text('查询结果：没有找到匹配的声纹。').show();
+        }
       },
       error: function() {
         $('#loadingAnimation').hide(); // 隐藏加载动画
