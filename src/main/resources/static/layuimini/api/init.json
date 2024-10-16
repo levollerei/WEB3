@@ -18,19 +18,19 @@
         {
           "title": "救援行动",
           "href": "",
-          "icon": "fa fa-heartbeat",
+          "icon": "fa fa-road",
           "target": "_self",
           "child": [
             {
               "title": "救援信息",
               "href": "page/ongoingrescue.html",
-              "icon": "fa fa-wheelchair",
+              "icon": "fa fa-file-text",
               "target": "_self"
             },
             {
               "title": "救援管理",
               "href": "page/aid-application.html",
-              "icon": "fa fa-pencil-square-o",
+              "icon": "fa fa-th-large",
               "target": "_self"
             },
             {
@@ -69,8 +69,8 @@
         },
         {
           "title": "失踪预测可视化",
-          "href": " echats.html",
-          "icon": "fa fa-bar-chart",
+          "href": "echats.html",
+          "icon": "layui-icon layui-icon-chart",
           "target": "_self"
         },
         {
@@ -104,13 +104,13 @@
             {
               "title": "图片比对",
               "href": "page/face_comparison.html",
-              "icon": "fa fa-bell",
+              "icon": "fa fa-id-badge",
               "target": "_self"
             },
             {
               "title": "视频比对",
               "href": "page/face_comparison_video.html",
-              "icon": "fa fa-paint-brush",
+              "icon": "fa user-circle-o",
               "target": "_self"
             }
           ]
@@ -124,19 +124,19 @@
         {
           "title": "通知家属",
           "href": "page/family-notification.html",
-          "icon": "fa fa-bell",
+          "icon": "fa fa-commenting-o",
           "target": "_self"
         },
         {
           "title": "紧急通知",
           "href": "page/emergency-notice.html",
-          "icon": "fa fa-file-text",
+          "icon": "fa fa-bell-o",
           "target": "_self"
         },
         {
           "title": "使用说明",
           "href": "page/user-guide.html",
-          "icon": "fa fa-window-maximize",
+          "icon": "fa fa-book",
           "target": "_self"
         },
         {
