@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>声纹识别</title>
+  <title>声纹识别系统</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <style>
     body {
@@ -15,60 +15,48 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
-      overflow: hidden;
     }
 
     .container {
-      display: flex;
-      justify-content: space-between;
       width: 90%;
-      max-width: 1400px;
+      max-width: 1600px;
       background-color: white;
       padding: 40px;
       border-radius: 20px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-      animation: fadeIn 1s ease-in-out;
-      transform: scale(1);
-      transition: transform 0.3s ease-in-out;
+      display: flex;
+      flex-direction: column;
     }
 
-    .container:hover {
-      transform: scale(1.02);
+    .top-section {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 30px;
     }
 
-    .main-card, .side-card {
+    .card {
+      flex: 1;
       background-color: #fff;
       border-radius: 20px;
       padding: 40px;
+      margin-right: 20px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
       transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
     }
 
-    .main-card:hover, .side-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    .card:last-child {
+      margin-right: 0;
     }
 
-    .main-card {
-      flex: 2;
-      margin-right: 30px;
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
     }
 
     h1 {
       font-size: 30px;
       color: #007bff;
       margin-bottom: 20px;
-    }
-
-    .instructions {
-      font-size: 18px;
-      color: #666;
-      margin-bottom: 20px;
-    }
-
-    .input-container {
-      position: relative;
-      margin-bottom: 30px;
     }
 
     label {
@@ -78,31 +66,18 @@
       color: #333;
     }
 
-    .input-icon input {
-      width: 75%;
-      max-width: 500px;
-      padding: 12px 20px;
+    .input-container {
+      margin-bottom: 30px;
+    }
+
+    input[type="file"] {
+      width: 100%;
+      padding: 12px;
       font-size: 16px;
       border: 2px solid #007bff;
       border-radius: 10px;
       outline: none;
       margin-top: 10px;
-    }
-
-    .input-icon .icon {
-      position: absolute;
-      left: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 18px;
-      color: #007bff;
-    }
-
-    #result {
-      font-size: 18px;
-      color: #333;
-      margin-top: 30px;
-      text-align: center;
     }
 
     button {
@@ -115,7 +90,6 @@
       cursor: pointer;
       transition: background-color 0.3s ease, box-shadow 0.3s ease;
       width: 100%;
-      margin-top: 30px;
     }
 
     button:hover {
@@ -123,105 +97,189 @@
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
 
-    .side-card {
+    .bottom-section {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .upload-records, .help {
       flex: 1;
       background-color: #fff;
       border-radius: 20px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
       padding: 30px;
-      text-align: left;
-      animation: fadeIn 1s ease-in-out;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      margin-right: 20px;
     }
 
-    .side-card h2 {
+    .upload-records:last-child, .help:last-child {
+      margin-right: 0;
+    }
+
+    h2 {
       font-size: 22px;
-      margin-bottom: 20px;
       color: #007bff;
+      margin-bottom: 20px;
     }
 
-    .side-card ul {
+    ul {
       list-style: none;
       padding: 0;
-      margin: 0 0 20px 0;
     }
 
-    .side-card li {
+    li {
       font-size: 16px;
       color: #333;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
 
-    .side-card p {
+    .help p {
       font-size: 14px;
       color: #555;
     }
 
-    @keyframes fadeIn {
-      0% {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .loading-animation {
+      display: none;
+      text-align: center;
     }
+
+    .loading-animation img {
+      width: 80px;
+      height: 80px;
+    }
+
+    .result {
+      display: none;
+      font-size: 18px;
+      color: #333;
+      margin-top: 20px;
+    }
+
   </style>
 </head>
 <body>
 
 <div class="container">
-  <div class="main-card">
-    <h1>声纹识别</h1>
-    <p class="instructions">请上传一个音频文件，系统将与库中的音频进行比对，几秒钟内返回相似度。</p>
-    <form id="uploadForm">
-      <div class="input-container">
-        <label for="audioFile">上传音频文件</label>
-        <div class="input-icon">
-          <input type="file" id="audioFile" name="file" accept="audio/*" required>
-          <span class="icon"><i class="fas fa-microphone"></i></span>
+
+  <!-- 上半部分 -->
+  <div class="top-section">
+    <!-- 声音新增功能 -->
+    <div class="card">
+      <h1>声音新增</h1>
+      <form id="addVoiceForm">
+        <div class="input-container">
+          <label for="newAudioFile">上传新音频文件</label>
+          <input type="file" id="newAudioFile" name="file" accept="audio/*" required>
         </div>
-      </div>
-      <button type="submit">立即比对</button>
-    </form>
-    <p id="result"></p>
+        <button type="submit">新增音频</button>
+      </form>
+    </div>
+
+    <!-- 数据比对功能 -->
+    <div class="card">
+      <h1>数据比对</h1>
+      <form id="compareVoiceForm">
+        <div class="input-container">
+          <label for="compareAudioFile">上传音频文件进行比对</label>
+          <input type="file" id="compareAudioFile" name="file" accept="audio/*" required>
+        </div>
+        <button type="submit" id="compareButton">立即比对</button>
+        <div class="loading-animation" id="loadingAnimation">
+          <img src="loading.gif" alt="Loading">
+          <p>正在查询...</p>
+        </div>
+        <p class="result" id="result"></p>
+      </form>
+    </div>
   </div>
 
-  <div class="side-card">
-    <h2>最近比对记录</h2>
-    <ul>
-      <li>张三 - 92.4%相似度</li>
-      <li>李四 - 78.3%相似度</li>
-      <li>王五 - 85.7%相似度</li>
-    </ul>
-    <h2>帮助信息</h2>
-    <p>请确保音频清晰，背景噪音较小，以提高比对准确性。</p>
+  <!-- 下半部分 -->
+  <div class="bottom-section">
+    <!-- 声音上传记录 -->
+    <div class="upload-records card">
+      <h2>声音上传记录</h2>
+      <ul id="uploadList">
+        <li>张三的声音.mp3</li>
+        <li>李四的声音.mp3</li>
+        <li>王五的声音.mp3</li>
+        <li>赵六的声音.mp3</li>
+      </ul>
+    </div>
+
+    <!-- 帮助信息 -->
+    <div class="help card">
+      <h2>帮助信息</h2>
+      <p>请确保上传的音频清晰、无噪音，这样可以提高比对的准确性。文件格式支持 .mp3、.wav 等常见格式。</p>
+    </div>
   </div>
+
 </div>
 
 <script src="../js/jquery-2.2.1.min.js"></script>
 <script>
-  // 表单提交处理
-  $('#uploadForm').submit(function(event) {
+  // 新增音频表单提交处理
+  $('#addVoiceForm').submit(function(event) {
     event.preventDefault();
+
     var formData = new FormData();
-    formData.append('file', $('#audioFile')[0].files[0]);
+    formData.append('audioFile', $('#newAudioFile')[0].files[0]);
+
+    // 添加额外的参数，如 groupId, featureId, featureInfo
+    formData.append('groupId', 'iFLYTEK_examples_groupId');
+    formData.append('featureId', 'example_featureId');
+    formData.append('featureInfo', 'example_featureInfo');
 
     $.ajax({
-      url: '/voice-compare',
+      url: '/createFeature',
       type: 'POST',
       data: formData,
       processData: false,
       contentType: false,
       success: function(res) {
-        if (res.success) {
-          $('#result').text('相似度为：' + res.similarity + '%');
-        } else {
-          $('#result').text('未找到匹配的音频');
-        }
+        alert('音频已成功新增！');
+        $('#uploadList').append('<li>' + $('#newAudioFile')[0].files[0].name + '</li>');  // 动态更新上传记录
+      },
+      error: function() {
+        alert('新增音频失败，请重试。');
       }
     });
   });
+
+
+  // 比对音频表单提交处理
+  $('#compareVoiceForm').submit(function(event) {
+    event.preventDefault();
+
+    var formData = new FormData();
+    formData.append('audioFile', $('#compareAudioFile')[0].files[0]);
+
+    // 传递 groupId 和 topK 参数
+    formData.append('groupId', 'iFLYTEK_examples_groupId');
+    formData.append('topK', 100);
+
+    // 显示加载动画，隐藏比对结果
+    $('#loadingAnimation').show();
+    $('#result').hide();
+
+    $.ajax({
+      url: '/searchFeature',
+      type: 'POST',
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: function(res) {
+        // 隐藏加载动画，显示比对结果
+        $('#loadingAnimation').hide();
+        $('#result').text('查询结果：' + res.featureInfo + '相似度为：' + (res.similarity * 100) + '%').show();
+      },
+      error: function() {
+        alert('音频比对失败，请重试。');
+        // 隐藏加载动画
+        $('#loadingAnimation').hide();
+      }
+    });
+  });
+
 </script>
+
 </body>
 </html>
