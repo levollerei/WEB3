@@ -70,7 +70,7 @@
         {
           "title": "失踪预测可视化",
           "href": "echats.html",
-          "icon": "layui-icon layui-icon-chart",
+          "icon": "fa fa-area-chart",
           "target": "_self"
         },
         {
