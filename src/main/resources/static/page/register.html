@@ -9,6 +9,16 @@
     <link rel="stylesheet" href="../layuimini/lib/layui-v2.5.5/css/layui.css" media="all">
     <link rel="stylesheet" href="../layuimini/css/public.css" media="all">
     <link rel="stylesheet" href="../layuimini/js/lay-module/step-lay/step.css" media="all">
+    <style>
+        .view-progress-btn {
+            background-color: #1c528a;
+            color: white;
+        }
+
+        .view-progress-btn:hover {
+            background-color: #0069d9;
+        }
+    </style>
 </head>
 <body>
 <div class="layuimini-container">
@@ -54,7 +64,7 @@
                                     </div>
                                     <div class="layui-form-item">
                                         <div class="layui-input-block">
-                                            <button class="layui-btn" lay-submit lay-filter="formStep">
+                                            <button class="layui-btn view-progress-btn" lay-submit lay-filter="formStep">
                                                 &emsp;下一步&emsp;
                                             </button>
                                         </div>
@@ -89,8 +99,8 @@
                                     </div>
                                     <div class="layui-form-item">
                                         <div class="layui-input-block">
-                                            <button type="button" class="layui-btn layui-btn-primary pre">上一步</button>
-                                            <button class="layui-btn" lay-submit lay-filter="formStep2">
+                                            <button type="button" class="layui-btn layui-btn-primary pre view-progress-btn">上一步</button>
+                                            <button class="layui-btn view-progress-btn" lay-submit lay-filter="formStep2">
                                                 &emsp;确认注册&emsp;
                                             </button>
                                         </div>
@@ -107,7 +117,7 @@
                                     <div style="font-size: 14px;color: #666;margin-top: 20px;">队员信息添加成功</div>
                                 </div>
                                 <div style="text-align: center;margin-top: 50px;">
-                                    <button class="layui-btn next">继续注册</button>
+                                    <button class="layui-btn next view-progress-btn">继续注册</button>
                                     <button class="layui-btn layui-btn-primary">查看信息</button>
                                 </div>
                             </div>
