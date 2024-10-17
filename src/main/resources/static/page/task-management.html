@@ -8,6 +8,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <link rel="stylesheet" href="../layuimini/lib/layui-v2.5.5/css/layui.css" media="all">
   <link rel="stylesheet" href="../layuimini/css/public.css" media="all">
+  <style>
+    /* 自定义查看进度按钮的样式 */
+    .view-progress-btn {
+      background-color: #1c528a;
+      color: white; /* 按钮文字颜色 */
+    }
+
+    /* 悬停时按钮颜色变化 */
+    .view-progress-btn:hover {
+      background-color: #0069d9; /* 悬停时的颜色 */
+    }
+  </style>
 </head>
 <body>
 <div class="layuimini-container">
@@ -33,7 +45,7 @@
         <td>2024-04-16</td>
         <td><span class="layui-badge layui-bg-blue">进行中</span></td>
         <td>
-          <button class="layui-btn layui-btn-sm" onclick="viewProgress('001', '李志强')">查看进度</button>
+          <button class="layui-btn layui-btn-sm view-progress-btn" onclick="viewProgress('001', '李志强')">查看进度</button>
           <button class="layui-btn layui-btn-danger layui-btn-sm" onclick="confirmEndTask('001')">结束任务</button>
         </td>
       </tr>
@@ -43,7 +55,7 @@
         <td>2024-05-16</td>
         <td><span class="layui-badge layui-bg-orange">待接收</span></td>
         <td>
-          <button class="layui-btn layui-btn-sm" onclick="viewProgress('002', '向前')">查看进度</button>
+          <button class="layui-btn layui-btn-sm view-progress-btn" onclick="viewProgress('002', '向前')">查看进度</button>
           <button class="layui-btn layui-btn-danger layui-btn-sm" onclick="confirmEndTask('002')">结束任务</button>
         </td>
       </tr>
@@ -53,7 +65,7 @@
         <td>2024-03-19</td>
         <td><span class="layui-badge layui-bg-blue">进行中</span></td>
         <td>
-          <button class="layui-btn layui-btn-sm" onclick="viewProgress('003', '张德胜')">查看进度</button>
+          <button class="layui-btn layui-btn-sm view-progress-btn" onclick="viewProgress('003', '张德胜')">查看进度</button>
           <button class="layui-btn layui-btn-danger layui-btn-sm" onclick="confirmEndTask('003')">结束任务</button>
         </td>
       </tr>
@@ -63,7 +75,7 @@
         <td>2024-08-17</td>
         <td><span class="layui-badge layui-bg-green">已结束</span></td>
         <td>
-          <button class="layui-btn layui-btn-sm" onclick="viewProgress('004', '王建国')">查看进度</button>
+          <button class="layui-btn layui-btn-sm view-progress-btn" onclick="viewProgress('004', '王建国')">查看进度</button>
           <button class="layui-btn layui-btn-disabled layui-btn-sm">已结束</button>
         </td>
       </tr>

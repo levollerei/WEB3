@@ -16,6 +16,15 @@
       color: white !important;
       transition: color 0.3s, background-color 0.3s;
     }
+    .view-progress-btn {
+      background-color: #1c528a;
+      color: white; /* 按钮文字颜色 */
+    }
+
+    /* 悬停时按钮颜色变化 */
+    .view-progress-btn:hover {
+      background-color: #0069d9; /* 悬停时的颜色 */
+    }
 
     /* 鼠标悬停时显示提示 */
     .layui-colla-title::after {
@@ -162,7 +171,7 @@
 
     <!-- 返回按钮 -->
     <div class="layui-form-item" style="text-align: center; margin-top: 30px;">
-      <button class="layui-btn" onclick="window.history.back()">返回</button>
+      <button class="layui-btn view-progress-btn" onclick="window.history.back()">返回</button>
     </div>
   </div>
 </div>

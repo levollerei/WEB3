@@ -8,6 +8,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="../layuimini/lib/layui-v2.5.5/css/layui.css" media="all">
     <link rel="stylesheet" href="../layuimini/css/public.css" media="all">
+	<style>
+		/* 修改按钮背景颜色 */
+		#sub {
+			background-color: #1c528a !important;
+		}
+		.view-progress-btn {
+			background-color: #1c528a;
+			color: white; /* 按钮文字颜色 */
+		}
+
+		/* 悬停时按钮颜色变化 */
+		.view-progress-btn:hover {
+			background-color: #0069d9; /* 悬停时的颜色 */
+		}
+	</style>
 </head>
 <body>
 <div class="layuimini-container">
@@ -84,7 +99,7 @@
 
 
 			<div class="layui-upload">
-				<button type="button" class="layui-btn" id="test1">上传图片</button>
+				<button type="button" class="layui-btn view-progress-btn" id="test1">上传图片</button>
 				<div class="layui-upload-list">
 					<img class="layui-upload-img" id="demo1">
 					<p id="demoText"></p>

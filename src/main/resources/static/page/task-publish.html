@@ -45,6 +45,15 @@
       color: red;
     }
 
+    .view-progress-btn {
+      background-color: #1c528a;
+      color: white; /* 按钮文字颜色 */
+    }
+
+    /* 悬停时按钮颜色变化 */
+    .view-progress-btn:hover {
+      background-color: #0069d9; /* 悬停时的颜色 */
+    }
     .layui-card {
       margin: 20px;
     }
@@ -126,7 +135,7 @@
         <label class="layui-form-label">上传图片</label>
         <div class="layui-input-block">
           <div class="layui-upload">
-            <button type="button" class="layui-btn" id="uploadImage">上传图片</button>
+            <button type="button" class="layui-btn view-progress-btn" id="uploadImage">上传图片</button>
             <div class="layui-upload-list" id="uploadList"></div>
           </div>
         </div>

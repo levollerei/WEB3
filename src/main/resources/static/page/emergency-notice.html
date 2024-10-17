@@ -24,6 +24,15 @@
       text-align: right; /* 右对齐 */
       margin-right: 10px; /* 给标签和输入框增加间距 */
     }
+    .view-progress-btn {
+      background-color: #1c528a;
+      color: white; /* 按钮文字颜色 */
+    }
+
+    /* 悬停时按钮颜色变化 */
+    .view-progress-btn:hover {
+      background-color: #0069d9; /* 悬停时的颜色 */
+    }
 
     .layui-input-block {
       width: 1200px; /* 固定输入框容器宽度 */
@@ -94,7 +103,7 @@
 
       <div class="layui-form-item">
         <div class="layui-input-block">
-          <button class="layui-btn" lay-submit lay-filter="send-notice">发送通知</button>
+          <button class="layui-btn view-progress-btn" lay-submit lay-filter="send-notice">发送通知</button>
         </div>
       </div>
     </form>

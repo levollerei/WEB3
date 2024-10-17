@@ -9,6 +9,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <link rel="stylesheet" href="../layuimini/lib/layui-v2.5.5/css/layui.css" media="all">
   <link rel="stylesheet" href="../layuimini/css/public.css" media="all">
+  <style>
+    /* 自定义查看进度按钮的样式 */
+    .view-progress-btn {
+      background-color: #1c528a;
+      color: white; /* 按钮文字颜色 */
+    }
+
+    /* 悬停时按钮颜色变化 */
+    .view-progress-btn:hover {
+      background-color: #0069d9; /* 悬停时的颜色 */
+    }
+  </style>
 </head>
 <body>
 <div class="layuimini-container">
@@ -50,7 +62,7 @@
 
       <div class="layui-form-item">
         <div class="layui-input-block" style="text-align: center;">
-          <button class="layui-btn" lay-submit="" lay-filter="demo1">提交</button>
+          <button class="layui-btn view-progress-btn" lay-submit="" lay-filter="demo1">提交</button>
           <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
       </div>
