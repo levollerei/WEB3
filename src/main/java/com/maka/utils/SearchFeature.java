@@ -46,7 +46,7 @@ public class SearchFeature {
 
     // 请求主方法
     // 请求主方法，返回相似度和featureInfo
-    public SearchFeatureResult doRequest() throws Exception {
+    public SearchFeatureResult doRequest(int topK) throws Exception {
         URL realUrl = new URL(buildRequestUrl());
         URLConnection connection = realUrl.openConnection();
         HttpURLConnection httpURLConnection = (HttpURLConnection) connection;
@@ -56,7 +56,7 @@ public class SearchFeature {
         httpURLConnection.setRequestProperty("Content-type", "application/json");
 
         OutputStream out = httpURLConnection.getOutputStream();
-        String params = buildParam();
+        String params = buildParam(topK);
         System.out.println("params=>" + params);
         out.write(params.getBytes());
         out.flush();
@@ -144,7 +144,7 @@ public class SearchFeature {
 
 
     // 构造请求参数
-    private String buildParam() throws IOException {
+    private String buildParam(int topK) throws IOException {
         String audioBase64 = Base64.getEncoder().encodeToString(audioData);
 
         String param = "{\n" +
@@ -156,7 +156,7 @@ public class SearchFeature {
                 "        \"s782b4996\": {\n" +
                 "            \"func\": \"searchFea\",\n" +
                 "            \"groupId\": \"iFLYTEK_examples_groupId\",\n" +
-                "            \"topK\": 2,\n" +  // 可根据请求动态传入
+                "            \"topK\": " + topK + ",\n" +  // 可根据请求动态传入
                 "            \"searchFeaRes\": {\n" +
                 "                \"encoding\": \"utf8\",\n" +
                 "                \"compress\": \"raw\",\n" +

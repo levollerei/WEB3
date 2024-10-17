@@ -227,7 +227,7 @@
     <!-- 帮助信息 -->
     <div class="help card" style="margin-left: 20px;">
       <h2>帮助信息</h2>
-      <p>请确保上传的音频清晰、无噪音，这样可以提高比对的准确性。文件格式支持 .mp3、.wav 等常见格式。</p>
+      <p>请确保上传的音频清晰、无噪音，这样可以提高比对的准确性。文件格式进支持 .mp3格式。</p>
     </div>
   </div>
 </div>
@@ -272,7 +272,7 @@
 
     // 传递 groupId 和 topK 参数
     formData.append('groupId', 'iFLYTEK_examples_groupId');
-    formData.append('topK', 100);
+    formData.append('topK', 10);
 
     $.ajax({
       url: '/searchFeature',
@@ -282,7 +282,7 @@
       contentType: false,
       success: function(res) {
         $('#loadingAnimation').hide(); // 隐藏加载动画
-        if ((res.similarity * 100) >= 80) {
+        if ((res.similarity * 100) >= 60) {
           $('#result').text('查询结果：' + res.featureInfo + '  相似度为：' + (res.similarity * 100) + '%').show();
         }
         else {

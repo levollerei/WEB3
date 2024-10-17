@@ -79,7 +79,7 @@ public class VoiceServiceImpl implements VoiceService {
             );
 
             // 调用 doRequest 方法获取相似度和 featureInfo
-            SearchFeatureResult result = searchFeature.doRequest();
+            SearchFeatureResult result = searchFeature.doRequest(topK);
 
             return result;  // 直接返回 SearchFeatureResult 对象
 
