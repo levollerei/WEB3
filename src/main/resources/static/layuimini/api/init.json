@@ -16,6 +16,18 @@
       "target": "_self",
       "child": [
         {
+          "title": "可视化数据显示",
+          "href": "data-view.html",
+          "icon": "fa fa-bar-chart",
+          "target": "_self"
+        },
+        {
+          "title": "失踪预测可视化",
+          "href": "echats.html",
+          "icon": "fa fa-area-chart",
+          "target": "_self"
+        },
+        {
           "title": "救援行动",
           "href": "",
           "icon": "fa fa-road",
@@ -42,38 +54,6 @@
           ]
         },
         {
-          "title": "队员管理",
-          "href": "",
-          "icon": "fa fa-group",
-          "target": "_self",
-          "child": [
-            {
-              "title": "队员信息",
-              "href": "page/volunteer-info.html",
-              "icon": "fa fa-file-text-o",
-              "target": "_self"
-            },
-            {
-              "title": "信息修改",
-              "href": "page/register.html",
-              "icon": "fa fa-paint-brush",
-              "target": "_self"
-            }
-          ]
-        },
-        {
-          "title": "可视化数据显示",
-          "href": "data-view.html",
-          "icon": "fa fa-bar-chart",
-          "target": "_self"
-        },
-        {
-          "title": "失踪预测可视化",
-          "href": "echats.html",
-          "icon": "fa fa-area-chart",
-          "target": "_self"
-        },
-        {
           "title": "任务中心",
           "icon": "fa fa-tasks",
           "href": "",
@@ -89,6 +69,26 @@
               "title": "任务管理",
               "href": "page/task-management.html",
               "icon": "fa fa-list-alt",
+              "target": "_self"
+            }
+          ]
+        },
+        {
+          "title": "队员管理",
+          "href": "",
+          "icon": "fa fa-group",
+          "target": "_self",
+          "child": [
+            {
+              "title": "队员信息",
+              "href": "page/volunteer-info.html",
+              "icon": "fa fa-file-text-o",
+              "target": "_self"
+            },
+            {
+              "title": "信息修改",
+              "href": "page/register.html",
+              "icon": "fa fa-paint-brush",
               "target": "_self"
             }
           ]
